@@ -12,13 +12,13 @@ public class TaskValidator {
         String priority = task.getPriority().toLowerCase();
 
 
-        if (task.getTaskName() == null || task.getTaskName().isEmpty()) {
+        if (taskName == null || taskName.isEmpty()) {
             return "Task name cannot be empty.";
-        } else if (task.getCategory() == null || task.getCategory().isEmpty()) {
+        } else if (category == null || category.isEmpty()) {
             return "Category cannot be empty.";
-        } else if (task.getDueDate() == null) {
+        } else if (dueDate == null) {
             return "Due date cannot be empty.";
-        } else if (task.getDueDate().isBefore(LocalDate.now())) {
+        } else if (dueDate.isBefore(LocalDate.now())) {
             return "Due date cannot be in the past.";
         } else if (task.getPriority() == null || task.getPriority().isEmpty()) {
             return "Priority cannot be empty.";
