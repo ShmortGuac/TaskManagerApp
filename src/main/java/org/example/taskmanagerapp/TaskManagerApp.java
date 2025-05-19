@@ -4,9 +4,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -28,12 +26,10 @@ public class TaskManagerApp extends Application{
         imageView.setFitHeight(48);
         imageView.setPreserveRatio(true);
 
-        Border inputBorder = new Border(new BorderStroke(
-                Color.BLACK,
-                BorderStrokeStyle.SOLID,
-                new CornerRadii(50),
-                new BorderWidths(0)
-        ));
+        HBox titleSection = new HBox(imageView);
+        titleSection.setAlignment(Pos.CENTER);
+
+        // Task Input section --------------------------------------------------------------
 
         // Task Name
         Label taskNameLabel = new Label("Task Name");
@@ -81,17 +77,20 @@ public class TaskManagerApp extends Application{
         VBox inputSection = new VBox(50, inputs, addTaskButton);
         inputSection.setPrefWidth(227);
 
+        // Task Input section end --------------------------------------------------------------
+
+        // Task display section ----------------------------------------------------------------
 
         Label outputLabel = new Label("Your To-Do List");
         outputLabel.setTextFill(Color.WHITE);
         outputLabel.setFont(Font.font("Arial", FontWeight.NORMAL, FontPosture.REGULAR, 16));
 
-        VBox displaySection = new VBox(10, outputLabel);
+        TaskCard task1 = new TaskCard("Vacuum Floor", "Cleaning", "Medium", "24/10/2025");
+
+
+        VBox displaySection = new VBox(10, outputLabel, task1);
         displaySection.setPadding(new Insets(22, 10, 22, 10));
 
-
-        HBox titleSection = new HBox(imageView);
-        titleSection.setAlignment(Pos.CENTER);
 
         HBox contentSection = new HBox(74, inputSection, displaySection);
         contentSection.setPadding(new Insets(10));
