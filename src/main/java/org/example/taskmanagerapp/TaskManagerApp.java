@@ -15,9 +15,10 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class TaskManagerApp extends Application{
-
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -90,6 +91,19 @@ public class TaskManagerApp extends Application{
 
         VBox displaySection = new VBox(10, outputLabel, task1);
         displaySection.setPadding(new Insets(22, 10, 22, 10));
+
+        addTaskButton.setOnAction(e->{
+            Task task50 = new Task(taskNameTField.getText(), taskCategoryTField.getText(), LocalDate.parse(taskDueTField.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")), taskPriorityTField.getText());
+            if(TaskValidator.validateTask(task50).equals("Task is valid.")){
+                TaskCard task100 = new TaskCard(task50);
+                displaySection.getChildren().add(task100);
+            }else{
+                Label errorMsg = new Label(TaskValidator.validateTask(task50));
+                errorMsg.setFont(Font.font("Arial"));
+                errorMsg.setTextFill(Color.RED);
+                inputSection.getChildren().add(errorMsg);
+            }
+        });
 
 
         HBox contentSection = new HBox(74, inputSection, displaySection);
