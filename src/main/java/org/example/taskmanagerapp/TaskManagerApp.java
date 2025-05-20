@@ -93,13 +93,12 @@ public class TaskManagerApp extends Application{
         displaySection.setPadding(new Insets(22, 10, 22, 10));
 
         addTaskButton.setOnAction(e->{
-            Task task50 = new Task(taskNameTField.getText(), taskCategoryTField.getText(), LocalDate.parse(taskDueTField.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")), taskPriorityTField.getText());
-            if(TaskValidator.validateTask(task50).equals("Task is valid.")){
-                TaskCard task100 = new TaskCard(task50);
-                displaySection.getChildren().add(task100);
+            Task task = new Task(taskNameTField.getText(), taskCategoryTField.getText(), LocalDate.parse(taskDueTField.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")), taskPriorityTField.getText());
+            if(TaskValidator.validateTask(task).equals("Task is valid.")){
+                displaySection.getChildren().add(new TaskCard(task));
             }else{
-                Label errorMsg = new Label(TaskValidator.validateTask(task50));
-                errorMsg.setFont(Font.font("Arial"));
+                Label errorMsg = new Label(TaskValidator.validateTask(task));
+                errorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, FontPosture.REGULAR, 11));
                 errorMsg.setTextFill(Color.RED);
                 inputSection.getChildren().add(errorMsg);
             }
