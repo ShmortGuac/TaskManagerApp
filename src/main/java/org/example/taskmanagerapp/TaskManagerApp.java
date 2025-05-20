@@ -60,13 +60,10 @@ public class TaskManagerApp extends Application{
 
         TextField taskPriorityTField = new TextField();
 
-        VBox taskName = new VBox(taskNameLabel, taskNameTField);
-        VBox taskCategory = new VBox(taskCategoryLabel, taskCategoryTField);
-        VBox taskDueDate = new VBox(taskDueLabel, taskDueTField);
-        VBox taskPriority = new VBox(taskPriorityLabel, taskPriorityTField);
-
-        VBox inputs = new VBox(10, taskName, taskCategory, taskDueDate, taskPriority);
-
+        // Error Label
+        Label errorMsg = new Label();
+        errorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, FontPosture.REGULAR, 11));
+        errorMsg.setTextFill(Color.RED);
 
         // Add Task Button
         Button addTaskButton = new Button("ADD");
@@ -75,7 +72,15 @@ public class TaskManagerApp extends Application{
         addTaskButton.setFont(Font.font("Arial", FontWeight.NORMAL, FontPosture.REGULAR, 13));
         addTaskButton.setBackground(Background.fill(Color.web("0F7D12")));
 
-        VBox inputSection = new VBox(50, inputs, addTaskButton);
+        VBox taskName = new VBox(taskNameLabel, taskNameTField);
+        VBox taskCategory = new VBox(taskCategoryLabel, taskCategoryTField);
+        VBox taskDueDate = new VBox(taskDueLabel, taskDueTField);
+        VBox taskPriority = new VBox(taskPriorityLabel, taskPriorityTField);
+
+        VBox inputs = new VBox(10, taskName, taskCategory, taskDueDate, taskPriority);
+        VBox btnAndError = new VBox(10, addTaskButton, errorMsg);
+
+        VBox inputSection = new VBox(40, inputs, btnAndError);
         inputSection.setPrefWidth(227);
 
         // Task Input section end --------------------------------------------------------------
@@ -86,28 +91,36 @@ public class TaskManagerApp extends Application{
         outputLabel.setTextFill(Color.WHITE);
         outputLabel.setFont(Font.font("Arial", FontWeight.NORMAL, FontPosture.REGULAR, 16));
 
-        TaskCard task1 = new TaskCard("Vacuum Floor", "Cleaning", "Medium", "24/10/2025");
+        TaskCard taskExample1 = new TaskCard("Vacuum Floor", "Cleaning", "Medium", "24/10/2025");
+        TaskCard taskExample2 = new TaskCard("Watching Netflix", "Entertainment", "Low", "24/5/2025");
 
-
-        VBox displaySection = new VBox(10, outputLabel, task1);
+        VBox displaySection = new VBox(10, outputLabel, taskExample1, taskExample2);
         displaySection.setPadding(new Insets(22, 10, 22, 10));
 
+        //Adding New Task
         addTaskButton.setOnAction(e->{
-            Task task = new Task(taskNameTField.getText(), taskCategoryTField.getText(), LocalDate.parse(taskDueTField.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")), taskPriorityTField.getText());
-            if(TaskValidator.validateTask(task).equals("Task is valid.")){
-                displaySection.getChildren().add(new TaskCard(task));
+            if(taskDueTField.getText().isEmpty()){
+                errorMsg.setText("Due date cannot be empty.");
             }else{
-                Label errorMsg = new Label(TaskValidator.validateTask(task));
-                errorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, FontPosture.REGULAR, 11));
-                errorMsg.setTextFill(Color.RED);
-                inputSection.getChildren().add(errorMsg);
+                String tName = taskNameTField.getText();
+                String tCategory = taskCategoryTField.getText();
+                LocalDate tDate = LocalDate.parse(taskDueTField.getText(), DateTimeFormatter.ofPattern("d/M/yyyy"));
+                String tPriority =  taskPriorityTField.getText();
+
+                Task taskObj = new Task(tName, tCategory, tDate, tPriority);
+
+                if(TaskValidator.validateTask(taskObj).equals("Task is valid.")){
+                    displaySection.getChildren().add(new TaskCard(taskObj));
+                }else{
+                    errorMsg.setText(TaskValidator.validateTask(taskObj));
+                }
             }
         });
-
 
         HBox contentSection = new HBox(74, inputSection, displaySection);
         contentSection.setPadding(new Insets(10));
 
+        //Root ----------------------------------------------------------------
         VBox root = new VBox(10, titleSection, contentSection);
         root.setBackground(Background.EMPTY);
         root.setPadding(new Insets(20, 10, 20, 10));
