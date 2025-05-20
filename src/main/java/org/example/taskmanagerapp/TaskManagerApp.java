@@ -17,10 +17,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class TaskManagerApp extends Application{
-
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -31,18 +29,6 @@ public class TaskManagerApp extends Application{
 
         HBox titleSection = new HBox(imageView);
         titleSection.setAlignment(Pos.CENTER);
-
-        // Task display section ----------------------------------------------------------------
-
-        Label outputLabel = new Label("Your To-Do List");
-        outputLabel.setTextFill(Color.WHITE);
-        outputLabel.setFont(Font.font("Arial", FontWeight.NORMAL, FontPosture.REGULAR, 16));
-
-        TaskCard task1 = new TaskCard("Vacuum Floor", "Cleaning", "Medium", "24/10/2025");
-
-
-        VBox displaySection = new VBox(10, outputLabel);
-        displaySection.setPadding(new Insets(22, 10, 22, 10));
 
         // Task Input section --------------------------------------------------------------
 
@@ -67,11 +53,6 @@ public class TaskManagerApp extends Application{
 
         TextField taskDueTField = new TextField();
 
-        // Error Label
-        Label error = new Label("");
-        error.setTextFill(Color.RED);
-        error.setFont(Font.font("Arial", FontWeight.NORMAL, FontPosture.REGULAR, 11));
-
         // Task Priority
         Label taskPriorityLabel = new Label("Priority");
         taskPriorityLabel.setPrefHeight(25);
@@ -79,13 +60,10 @@ public class TaskManagerApp extends Application{
 
         TextField taskPriorityTField = new TextField();
 
-        VBox taskName = new VBox(taskNameLabel, taskNameTField);
-        VBox taskCategory = new VBox(taskCategoryLabel, taskCategoryTField);
-        VBox taskDueDate = new VBox(taskDueLabel, taskDueTField);
-        VBox taskPriority = new VBox(taskPriorityLabel, taskPriorityTField);
-
-        VBox inputs = new VBox(10, taskName, taskCategory, taskDueDate, taskPriority);
-
+        // Error Label
+        Label errorMsg = new Label();
+        errorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, FontPosture.REGULAR, 11));
+        errorMsg.setTextFill(Color.RED);
 
         // Add Task Button
         Button addTaskButton = new Button("ADD");
@@ -94,37 +72,55 @@ public class TaskManagerApp extends Application{
         addTaskButton.setFont(Font.font("Arial", FontWeight.NORMAL, FontPosture.REGULAR, 13));
         addTaskButton.setBackground(Background.fill(Color.web("0F7D12")));
 
-        addTaskButton.setOnAction(e->{
-            String task = taskNameTField.getText();
-            String category = taskCategoryTField.getText();
-            String dueDateString = taskDueTField.getText();
-            String priority = taskPriorityTField.getText();
+        VBox taskName = new VBox(taskNameLabel, taskNameTField);
+        VBox taskCategory = new VBox(taskCategoryLabel, taskCategoryTField);
+        VBox taskDueDate = new VBox(taskDueLabel, taskDueTField);
+        VBox taskPriority = new VBox(taskPriorityLabel, taskPriorityTField);
 
-            if(dueDateString.isEmpty()) {
-                error.setText("Date Cannot be Empty");
-            }else{
-                LocalDate dueDate = LocalDate.parse(dueDateString, DateTimeFormatter.ofPattern("d/M/yyyy"));
-                Task taskObj = new Task(task, category, dueDate, priority);
-                if(TaskValidator.validateTask(taskObj).isEmpty()){
-                    displaySection.getChildren().add(new TaskCard(taskObj));
-                }else{
-                    error.setText(TaskValidator.validateTask(taskObj));
-                }
-            }
+        VBox inputs = new VBox(10, taskName, taskCategory, taskDueDate, taskPriority);
+        VBox btnAndError = new VBox(10, addTaskButton, errorMsg);
 
-
-        });
-
-        VBox inputSection = new VBox(50, inputs, addTaskButton, error);
+        VBox inputSection = new VBox(40, inputs, btnAndError);
         inputSection.setPrefWidth(227);
 
         // Task Input section end --------------------------------------------------------------
 
+        // Task display section ----------------------------------------------------------------
 
+        Label outputLabel = new Label("Your To-Do List");
+        outputLabel.setTextFill(Color.WHITE);
+        outputLabel.setFont(Font.font("Arial", FontWeight.NORMAL, FontPosture.REGULAR, 16));
+
+        TaskCard taskExample1 = new TaskCard("Vacuum Floor", "Cleaning", "Medium", "24/10/2025");
+        TaskCard taskExample2 = new TaskCard("Watching Netflix", "Entertainment", "Low", "24/5/2025");
+
+        VBox displaySection = new VBox(10, outputLabel, taskExample1, taskExample2);
+        displaySection.setPadding(new Insets(22, 10, 22, 10));
+
+        //Adding New Task
+        addTaskButton.setOnAction(e->{
+            if(taskDueTField.getText().isEmpty()){
+                errorMsg.setText("Due date cannot be empty.");
+            }else{
+                String tName = taskNameTField.getText();
+                String tCategory = taskCategoryTField.getText();
+                LocalDate tDate = LocalDate.parse(taskDueTField.getText(), DateTimeFormatter.ofPattern("d/M/yyyy"));
+                String tPriority =  taskPriorityTField.getText();
+
+                Task taskObj = new Task(tName, tCategory, tDate, tPriority);
+
+                if(TaskValidator.validateTask(taskObj).equals("Task is valid.")){
+                    displaySection.getChildren().add(new TaskCard(taskObj));
+                }else{
+                    errorMsg.setText(TaskValidator.validateTask(taskObj));
+                }
+            }
+        });
 
         HBox contentSection = new HBox(74, inputSection, displaySection);
         contentSection.setPadding(new Insets(10));
 
+        //Root ----------------------------------------------------------------
         VBox root = new VBox(10, titleSection, contentSection);
         root.setBackground(Background.EMPTY);
         root.setPadding(new Insets(20, 10, 20, 10));
