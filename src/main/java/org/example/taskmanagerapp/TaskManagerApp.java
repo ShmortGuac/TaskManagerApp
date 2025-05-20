@@ -81,6 +81,7 @@ public class TaskManagerApp extends Application{
         VBox btnAndError = new VBox(10, addTaskButton, errorMsg);
 
         VBox inputSection = new VBox(40, inputs, btnAndError);
+        inputSection.setMinWidth(227);
         inputSection.setPrefWidth(227);
 
         // Task Input section end --------------------------------------------------------------
@@ -111,6 +112,10 @@ public class TaskManagerApp extends Application{
 
                 if(TaskValidator.validateTask(taskObj).equals("Task is valid.")){
                     displaySection.getChildren().add(new TaskCard(taskObj));
+                    taskNameTField.setText("");
+                    taskCategoryTField.setText("");
+                    taskDueTField.setText("");
+                    taskPriorityTField.setText("");
                 }else{
                     errorMsg.setText(TaskValidator.validateTask(taskObj));
                 }
@@ -125,7 +130,7 @@ public class TaskManagerApp extends Application{
         root.setBackground(Background.EMPTY);
         root.setPadding(new Insets(20, 10, 20, 10));
 
-        Scene scene = new Scene(root, 770, 500);
+        Scene scene = new Scene(root, 900, 500);
         scene.setFill(Color.BLACK);
         stage.setTitle("Task Manager App");
         stage.setScene(scene);
