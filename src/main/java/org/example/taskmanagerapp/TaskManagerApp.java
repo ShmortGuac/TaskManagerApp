@@ -131,7 +131,7 @@ public class TaskManagerApp extends Application{
         root.setBackground(Background.EMPTY);
         root.setPadding(new Insets(20, 10, 20, 10));
 
-        Scene scene = new Scene(root, 900, 500);
+        Scene scene = new Scene(root, 800, 450);
         scene.setFill(Color.BLACK);
         stage.setTitle("Task Manager App");
         stage.setScene(scene);
