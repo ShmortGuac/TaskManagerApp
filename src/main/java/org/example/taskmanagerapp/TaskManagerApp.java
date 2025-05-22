@@ -51,7 +51,10 @@ public class TaskManagerApp extends Application{
         taskDueLabel.setPrefHeight(25);
         taskDueLabel.setTextFill(Color.WHITE);
 
-        TextField taskDueTField = new TextField();
+        //TextField taskDueTField = new TextField();
+        DatePicker taskDueDatePicker = new DatePicker();
+        taskDueDatePicker.setPrefWidth(227);
+
 
         // Task Priority
         Label taskPriorityLabel = new Label("Priority");
@@ -74,7 +77,7 @@ public class TaskManagerApp extends Application{
 
         VBox taskName = new VBox(taskNameLabel, taskNameTField);
         VBox taskCategory = new VBox(taskCategoryLabel, taskCategoryTField);
-        VBox taskDueDate = new VBox(taskDueLabel, taskDueTField);
+        VBox taskDueDate = new VBox(taskDueLabel, taskDueDatePicker);
         VBox taskPriority = new VBox(taskPriorityLabel, taskPriorityTField);
 
         VBox inputs = new VBox(10, taskName, taskCategory, taskDueDate, taskPriority);
@@ -100,12 +103,10 @@ public class TaskManagerApp extends Application{
 
         //Adding New Task
         addTaskButton.setOnAction(e->{
-            if(taskDueTField.getText().isEmpty()){
-                errorMsg.setText("Due date cannot be empty.");
-            }else{
                 String tName = taskNameTField.getText();
                 String tCategory = taskCategoryTField.getText();
-                LocalDate tDate = LocalDate.parse(taskDueTField.getText(), DateTimeFormatter.ofPattern("d/M/yyyy"));
+                //LocalDate tDate = LocalDate.parse(taskDueTField.getText(), DateTimeFormatter.ofPattern("d/M/yyyy"));
+                LocalDate tDate = taskDueDatePicker.getValue();
                 String tPriority =  taskPriorityTField.getText();
 
                 Task taskObj = new Task(tName, tCategory, tDate, tPriority);
@@ -114,12 +115,12 @@ public class TaskManagerApp extends Application{
                     displaySection.getChildren().add(new TaskCard(taskObj));
                     taskNameTField.setText("");
                     taskCategoryTField.setText("");
-                    taskDueTField.setText("");
+                    //taskDueTField.setText("");
                     taskPriorityTField.setText("");
                 }else{
                     errorMsg.setText(TaskValidator.validateTask(taskObj));
                 }
-            }
+
         });
 
         HBox contentSection = new HBox(74, inputSection, displaySection);
