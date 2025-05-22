@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class TaskManagerApp extends Application{
     @Override
@@ -44,7 +43,11 @@ public class TaskManagerApp extends Application{
         taskCategoryLabel.setPrefHeight(25);
         taskCategoryLabel.setTextFill(Color.WHITE);
 
-        TextField taskCategoryTField = new TextField();
+        ComboBox<String> taskCategoryInput = new ComboBox<>();
+        taskCategoryInput.setPromptText("Choose Task Category");
+        taskCategoryInput.getItems().addAll("Assignment", "Cleaning", "Exercise");
+        taskCategoryInput.setEditable(true);
+        taskCategoryInput.setPrefWidth(227);
 
         // Task Due Date
         Label taskDueLabel = new Label("Due Date");
@@ -61,7 +64,10 @@ public class TaskManagerApp extends Application{
         taskPriorityLabel.setPrefHeight(25);
         taskPriorityLabel.setTextFill(Color.WHITE);
 
-        TextField taskPriorityTField = new TextField();
+        ComboBox<String> taskPriorityTField = new ComboBox<>();
+        taskPriorityTField.getItems().addAll("Low", "Medium", "High");
+        taskPriorityTField.setPromptText("Choose Task Priority");
+        taskPriorityTField.setPrefWidth(227);
 
         // Error Label
         Label errorMsg = new Label();
@@ -76,7 +82,7 @@ public class TaskManagerApp extends Application{
         addTaskButton.setBackground(Background.fill(Color.web("0F7D12")));
 
         VBox taskName = new VBox(taskNameLabel, taskNameTField);
-        VBox taskCategory = new VBox(taskCategoryLabel, taskCategoryTField);
+        VBox taskCategory = new VBox(taskCategoryLabel, taskCategoryInput);
         VBox taskDueDate = new VBox(taskDueLabel, taskDueDatePicker);
         VBox taskPriority = new VBox(taskPriorityLabel, taskPriorityTField);
 
@@ -104,19 +110,19 @@ public class TaskManagerApp extends Application{
         //Adding New Task
         addTaskButton.setOnAction(e->{
                 String tName = taskNameTField.getText();
-                String tCategory = taskCategoryTField.getText();
+                String tCategory = taskCategoryInput.getValue();
                 //LocalDate tDate = LocalDate.parse(taskDueTField.getText(), DateTimeFormatter.ofPattern("d/M/yyyy"));
                 LocalDate tDate = taskDueDatePicker.getValue();
-                String tPriority =  taskPriorityTField.getText();
+                String tPriority =  taskPriorityTField.getValue();
 
                 Task taskObj = new Task(tName, tCategory, tDate, tPriority);
 
                 if(TaskValidator.validateTask(taskObj).equals("Task is valid.")){
+                    taskCategoryInput.getItems().add(tCategory);
                     displaySection.getChildren().add(new TaskCard(taskObj));
                     taskNameTField.setText("");
-                    taskCategoryTField.setText("");
-                    //taskDueTField.setText("");
-                    taskPriorityTField.setText("");
+                    //taskCategoryInput.setText("");
+                    //taskPriorityTField.setText("");
                 }else{
                     errorMsg.setText(TaskValidator.validateTask(taskObj));
                 }

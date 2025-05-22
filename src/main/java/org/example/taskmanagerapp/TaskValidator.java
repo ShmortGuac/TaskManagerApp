@@ -12,7 +12,7 @@ public class TaskValidator {
         String taskName = task.getTaskName();
         String category = task.getCategory();
         LocalDate dueDate = task.getDueDate();
-        String priority = task.getPriority().toLowerCase();
+        String priority = task.getPriority();
 
 
         if (taskName == null || taskName.isEmpty()) {
@@ -23,9 +23,9 @@ public class TaskValidator {
             return "Due date cannot be empty.";
         } else if (dueDate.isBefore(LocalDate.now())) {
             return "Due date cannot be in the past.";
-        } else if (task.getPriority() == null || task.getPriority().isEmpty()) {
+        } else if (priority == null || priority.isEmpty()) {
             return "Priority cannot be empty.";
-        } else if (!priority.equals("low") && !priority.equals("medium") && !priority.equals("high")) {
+        } else if (!priority.equalsIgnoreCase("low") && !priority.equalsIgnoreCase("medium") && !priority.equalsIgnoreCase("high")) {
             return "Priority must be either 'Low', 'Medium' or 'High'.";
         } else {
             return "Task is valid.";
