@@ -20,7 +20,7 @@ public class TaskCard extends TitledPane {
         Label taskLabel = new Label("Task: " + taskName);
         Label categoryLabel = new Label("Category: " + taskCategory);
         Label priorityLabel = new Label("Priority: " + taskPriority);
-        Label dueLabel = new Label("Due Date:" + taskDueDate);
+        Label dueLabel = new Label("Due Date: " + taskDueDate);
 
         VBox task = new VBox(7, taskLabel, categoryLabel, priorityLabel, dueLabel);
         task.setPrefSize(560, 45);
@@ -43,7 +43,7 @@ public class TaskCard extends TitledPane {
         Label taskLabel = new Label("Task: " + taskName);
         Label categoryLabel = new Label("Category: " + taskCategory);
         Label priorityLabel = new Label("Priority: " + taskPriority);
-        Label dueLabel = new Label("Due Date:" + taskDueDate);
+        Label dueLabel = new Label("Due Date: " + taskDueDate);
 
         VBox taskBox = new VBox(7, taskLabel, categoryLabel, priorityLabel, dueLabel);
         taskBox.setPrefSize(560, 45);

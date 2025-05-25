@@ -92,10 +92,10 @@ public class TaskManagerApp extends Application{
         outputLabel.setTextFill(Color.WHITE);
         outputLabel.setFont(Font.font("Arial", FontWeight.NORMAL, FontPosture.REGULAR, 16));
 
-        TaskCard taskExample1 = new TaskCard("Vacuum Floor", "Cleaning", "Medium", "24/10/2025");
-        TaskCard taskExample2 = new TaskCard("Watching Netflix", "Entertainment", "Low", "24/5/2025");
+        //TaskCard taskExample1 = new TaskCard("Vacuum Floor", "Cleaning", "Medium", "24/10/2025");
+        //TaskCard taskExample2 = new TaskCard("Watching Netflix", "Entertainment", "Low", "24/5/2025");
 
-        VBox displaySection = new VBox(10, outputLabel, taskExample1, taskExample2);
+        VBox displaySection = new VBox(10, outputLabel);
         displaySection.setPadding(new Insets(22, 10, 22, 10));
 
         //Adding New Task
