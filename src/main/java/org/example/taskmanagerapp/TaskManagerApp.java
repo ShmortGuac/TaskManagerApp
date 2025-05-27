@@ -19,10 +19,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class TaskManagerApp extends Application{
+
+    // Changed the TaskManagerApp from CLI application into a GUI application
+
     @Override
     public void start(Stage stage) throws IOException {
 
-        Image nexusLogo = new Image("file:src/main/java/org/example/taskmanagerapp/Nexus.png");
+        Image nexusLogo = new Image("file:src/main/images/Nexus.png");
         ImageView imageView = new ImageView(nexusLogo);
         imageView.setFitHeight(48);
         imageView.setPreserveRatio(true);
@@ -100,6 +103,9 @@ public class TaskManagerApp extends Application{
 
         //Adding New Task
         addTaskButton.setOnAction(e->{
+
+            //Changed the logic for adding task considering the input is in the format of String
+
             if(taskDueTField.getText().isEmpty()){
                 errorMsg.setText("Due date cannot be empty.");
             }else{
@@ -124,6 +130,8 @@ public class TaskManagerApp extends Application{
 
         HBox contentSection = new HBox(74, inputSection, displaySection);
         contentSection.setPadding(new Insets(10));
+
+        // Task display section end ------------------------------------------------------------
 
         //Root ----------------------------------------------------------------
         VBox root = new VBox(10, titleSection, contentSection);

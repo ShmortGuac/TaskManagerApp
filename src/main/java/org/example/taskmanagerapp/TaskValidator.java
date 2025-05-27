@@ -1,7 +1,5 @@
 package org.example.taskmanagerapp;
 
-import javafx.scene.control.Alert;
-
 import java.time.LocalDate;
 
 public class TaskValidator {
@@ -23,7 +21,7 @@ public class TaskValidator {
             return "Due date cannot be empty.";
         } else if (dueDate.isBefore(LocalDate.now())) {
             return "Due date cannot be in the past.";
-        } else if (task.getPriority() == null || task.getPriority().isEmpty()) {
+        } else if (priority.isEmpty()) {
             return "Priority cannot be empty.";
         } else if (!priority.equals("low") && !priority.equals("medium") && !priority.equals("high")) {
             return "Priority must be either 'Low', 'Medium' or 'High'.";

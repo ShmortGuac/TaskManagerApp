@@ -7,7 +7,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class TaskCard extends TitledPane {
