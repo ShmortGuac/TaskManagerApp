@@ -134,9 +134,12 @@ public class TaskManagerApp extends Application{
         // Task display section end ------------------------------------------------------------
 
         //Root ----------------------------------------------------------------
-        VBox root = new VBox(10, titleSection, contentSection);
-        root.setBackground(Background.EMPTY);
-        root.setPadding(new Insets(20, 10, 20, 10));
+//        VBox root = new VBox(10, titleSection, contentSection);
+//        root.setBackground(Background.EMPTY);
+//        root.setPadding(new Insets(20, 10, 20, 10));
+
+        HomePage homePage = new HomePage();
+        StackPane root = new StackPane(homePage);
 
         Scene scene = new Scene(root, 900, 500);
         scene.setFill(Color.BLACK);
