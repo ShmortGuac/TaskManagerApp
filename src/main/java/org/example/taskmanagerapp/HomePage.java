@@ -109,7 +109,7 @@ public class HomePage extends VBox {
 
         //CSS styling
 
-        String buttonClass = "-fx-font-size: 15; -fx-background-radius: 15; -fx-cursor: hand;";
+        String buttonClass = "-fx-font-size: 15; -fx-background-radius: 15; -fx-cursor: hand; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;";
 
         this.setStyle("-fx-background-color: black");
         appTitle.setStyle("-fx-font-size: 20; -fx-text-fill: white;");

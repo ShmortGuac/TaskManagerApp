@@ -8,12 +8,14 @@ public class Task {
     private String category;
     private LocalDate dueDate;
     private String priority;
+    private boolean completed;
 
     public Task(){
         this.taskName = "Default Task";
         this.category = "General";
         this.dueDate = LocalDate.now();
         this.priority = "Low";
+        this.completed = false;
     }
 
     public Task(String taskName, String category, LocalDate dueDate, String priority) {
@@ -21,6 +23,7 @@ public class Task {
         this.category = category;
         this.dueDate = dueDate;
         this.priority = priority;
+        this.completed = false;
     }
 
     public String getTaskName() {
