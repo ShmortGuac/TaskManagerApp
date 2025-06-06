@@ -1,77 +1,38 @@
 package org.example.taskmanagerapp;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
 
-public class Task {
- 
-    private String taskName;
-    private String category;
-    private LocalDate dueDate;
-    private String priority;
-    private boolean completed;
+public class StudyTask extends Task{
 
-    public Task(){
-        this.taskName = "Default Task";
-        this.category = "General";
-        this.dueDate = LocalDate.now();
-        this.priority = "Low";
-        this.completed = false;
+    private String subject;
+
+    public StudyTask(){
+        super();
+        subject = "General Studies";
     }
 
-    public Task(String taskName, String category, LocalDate dueDate, String priority) {
-        this.taskName = taskName;
-        this.category = category;
-        this.dueDate = dueDate;
-        this.priority = priority;
-        this.completed = false;
+    public StudyTask(String taskName, String category, LocalDate dueDate, String priority, String subject){
+        super(taskName, category, dueDate, priority);
+        this.subject = subject;
     }
 
-    public String getTaskName() {
-        return taskName;
+    public String getSubject(){
+        return subject;
     }
 
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
+    public void setSubject(String subject){
+        this.subject = subject;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public LocalDate getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public String getPriority() {
-        return priority;
-    }
-
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
-
-    public boolean isCompleted(){
-        return completed;
-    }
-
-    public void setCompleted(boolean completed){
-        this.completed = completed;
-    }
-
+    @Override
     public VBox displayProperties(){
         Label categoryLabel = new Label("Category");
         categoryLabel.setPrefWidth(140);
@@ -84,12 +45,24 @@ public class Task {
         HBox category = new HBox(10, categoryLabel, categoryField);
         category.setAlignment(Pos.CENTER);
 
+        Label subjectLabel = new Label("Subject");
+        subjectLabel.setPrefWidth(140);
+        subjectLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+        TextField subjectField = new TextField();
+        subjectField.setPrefWidth(150);
+        subjectField.setPrefHeight(35);
+        subjectField.setEditable(false);
+        subjectField.setStyle("-fx-background-radius: 0");
+        HBox subject = new HBox(10, subjectLabel, subjectField);
+        subject.setAlignment(Pos.CENTER);
+
         Label dueDateLabel = new Label("Due Date");
         dueDateLabel.setPrefWidth(140);
         dueDateLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        DatePicker dueDateField = new DatePicker();
+        TextField dueDateField = new TextField();
         dueDateField.setPrefWidth(150);
         dueDateField.setPrefHeight(35);
+        dueDateField.setEditable(false);
         dueDateField.setStyle("-fx-background-radius: 0");
         HBox dueDate = new HBox(10, dueDateLabel, dueDateField);
         dueDate.setAlignment(Pos.CENTER);
@@ -97,8 +70,7 @@ public class Task {
         Label priorityLabel = new Label("Priority");
         priorityLabel.setPrefWidth(140);
         priorityLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        ComboBox<String> priorityField = new ComboBox<String>();
-        priorityField.getItems().addAll("LOW", "MEDIUM", "HIGH");
+        TextField priorityField = new TextField();
         priorityField.setPrefWidth(150);
         priorityField.setPrefHeight(35);
         priorityField.setEditable(false);
@@ -115,7 +87,7 @@ public class Task {
         HBox status = new HBox(10, statusLabel,statusBox);
         status.setAlignment(Pos.CENTER_LEFT);
 
-        VBox taskAttributes = new VBox(20, category, dueDate, priority, status);
+        VBox taskAttributes = new VBox(20, category, subject, dueDate, priority, status);
         VBox.setVgrow(taskAttributes, Priority.ALWAYS);
         taskAttributes.setAlignment(Pos.CENTER_LEFT);
         taskAttributes.setMaxHeight(Double.MAX_VALUE);
@@ -123,11 +95,5 @@ public class Task {
         return  taskAttributes;
     }
 
-
-
-    @Override
-    public String toString(){
-        return "Task : " + taskName + ", Category : " + category + ", Due Date : " + dueDate + ", Priority : " + priority;
-    }
 
 }

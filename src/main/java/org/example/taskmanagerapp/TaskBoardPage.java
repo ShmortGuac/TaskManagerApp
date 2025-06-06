@@ -9,8 +9,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
-
 
 public class TaskBoardPage extends VBox {
 
@@ -18,12 +16,6 @@ public class TaskBoardPage extends VBox {
 
 
     public TaskBoardPage(){
-
-        Image editIcon = new Image("file:src/main/images/Edit.png");
-        ImageView editIconView = new ImageView(editIcon);
-
-        Image deleteIcon = new Image("file:src/main/images/Trash.png");
-        ImageView deleteIconView = new ImageView(deleteIcon);
 
         // Page Header---------------------------------------------------------
 
@@ -38,7 +30,7 @@ public class TaskBoardPage extends VBox {
         nexusLogoView.setFitHeight(48);
         nexusLogoView.setPreserveRatio(true);
 
-        backButton = new HBox(5, backLogoView, backLabel);
+        backButton = new HBox(5, new ImageView(Icon.BACK.show()), backLabel);
         backButton.setAlignment(Pos.CENTER_LEFT);
         backButton.setStyle("-fx-cursor: hand");
 
@@ -56,7 +48,6 @@ public class TaskBoardPage extends VBox {
 
         HBox pageHeader = new HBox(10, backContainer, logoContainer, emptyContainer);
         pageHeader.setAlignment(Pos.CENTER);
-        pageHeader.setStyle("-fx-border-color: white;");
 
         // Page Header---------------------------------------------------------
 
@@ -67,13 +58,11 @@ public class TaskBoardPage extends VBox {
         taskBoardLabel.setMaxWidth(Double.MAX_VALUE);
         taskBoardLabel.setStyle("-fx-text-fill: white;");
 
-        Image filterIcon = new Image("file:src/main/images/filter.png");
-        ImageView filterIconView = new ImageView(filterIcon);
 
         ComboBox<String> taskFilter = new ComboBox<String>();
         taskFilter.setPrefWidth(128);
 
-        HBox filterContainer = new HBox(10, filterIconView, taskFilter);
+        HBox filterContainer = new HBox(10, new ImageView(Icon.FILTER.show()), taskFilter);
 
         HBox taskBoardHeader = new HBox(taskBoardLabel, filterContainer);
         HBox.setHgrow(taskBoardLabel, Priority.ALWAYS);
@@ -83,6 +72,7 @@ public class TaskBoardPage extends VBox {
         ListView<String> taskList = new ListView<String>();
 
         VBox taskBoard = new VBox(10, taskBoardHeader, taskList);
+        VBox.setVgrow(taskList, Priority.ALWAYS);
         taskBoard.setPadding(new Insets(10));
         // Task List Section--------------------------------
 
@@ -100,61 +90,16 @@ public class TaskBoardPage extends VBox {
         taskName.setPrefHeight(50);
         taskName.setAlignment(Pos.CENTER);
 
-        Label categoryLabel = new Label("Category");
-        categoryLabel.setPrefWidth(140);
-        categoryLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        TextField categoryField = new TextField();
-        categoryField.setPrefWidth(150);
-        categoryField.setPrefHeight(35);
-        categoryField.setEditable(false);
-        categoryField.setStyle("-fx-background-radius: 0");
-        HBox category = new HBox(10, categoryLabel, categoryField);
-        category.setAlignment(Pos.CENTER);
+        VBox taskAttributes = new Task().displayProperties();
 
-        Label dueDateLabel = new Label("Due Date");
-        dueDateLabel.setPrefWidth(140);
-        dueDateLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        TextField dueDateField = new TextField();
-        dueDateField.setPrefWidth(150);
-        dueDateField.setPrefHeight(35);
-        dueDateField.setEditable(false);
-        dueDateField.setStyle("-fx-background-radius: 0");
-        HBox dueDate = new HBox(10, dueDateLabel, dueDateField);
-        dueDate.setAlignment(Pos.CENTER);
-
-        Label priorityLabel = new Label("Priority");
-        priorityLabel.setPrefWidth(140);
-        priorityLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        TextField priorityField = new TextField();
-        priorityField.setPrefWidth(150);
-        priorityField.setPrefHeight(35);
-        priorityField.setEditable(false);
-        priorityField.setStyle("-fx-background-radius: 0");
-        HBox priority = new HBox(10, priorityLabel, priorityField);
-        priority.setAlignment(Pos.CENTER);
-
-        Label statusLabel = new Label("Completed");
-        statusLabel.setPrefWidth(140);
-        statusLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        CheckBox statusBox = new CheckBox();
-        statusBox.setScaleX(1.2);
-        statusBox.setScaleY(1.2);
-        HBox status = new HBox(10, statusLabel,statusBox);
-        status.setAlignment(Pos.CENTER_LEFT);
-
-        VBox taskAttributes = new VBox(20, category, dueDate, priority, status);
-        VBox.setVgrow(taskAttributes, Priority.ALWAYS);
-        taskAttributes.setAlignment(Pos.CENTER_LEFT);
-        taskAttributes.setMaxHeight(Double.MAX_VALUE);
-
-        Button editTask = new Button("Edit Task", editIconView);
+        Button editTask = new Button("Edit Task", new ImageView(Icon.EDIT.show()));
         editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(editTask, Priority.ALWAYS);
         editTask.setMaxWidth(Double.MAX_VALUE);
         editTask.setPrefHeight(45);
         editTask.setGraphicTextGap(10);
 
-        Button deleteTask = new Button("Delete Task", deleteIconView);
+        Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));
         deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(deleteTask, Priority.ALWAYS);
         deleteTask.setMaxWidth(Double.MAX_VALUE);
@@ -175,19 +120,44 @@ public class TaskBoardPage extends VBox {
 
         HBox pageBody = new HBox(taskBoard, taskDetails);
         HBox.setHgrow(taskBoard, Priority.ALWAYS);
-        pageBody.setStyle("-fx-border-color: white;");
+        VBox.setVgrow(pageBody, Priority.ALWAYS);
 
         // Task Details Section-----------------------------
 
         // Page Body-----------------------------------------------------------
 
+        // Additional Buttons--------------------------------------------------
+
+        Button addTask = new Button("Add Task", new ImageView(Icon.ADD.show()));
+        addTask.setGraphicTextGap(10);
+        addTask.setPadding(new Insets(10, 15, 10, 10));
+        addTask.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 16; -fx-cursor: hand");
+        addTask.setOnAction(e->{
+            new AddTaskPanel();
+        });
+
+        HBox addTaskContainer = new HBox(addTask);
+        HBox.setHgrow(addTaskContainer, Priority.ALWAYS);
+        addTaskContainer.setAlignment(Pos.CENTER_LEFT);
+
+
+        Button saveBoard = new Button("SAVE BOARD", new ImageView(Icon.SAVE.show()));
+        saveBoard.setGraphicTextGap(10);
+        saveBoard.setPadding(new Insets(10, 15, 10, 10));
+        saveBoard.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 16; -fx-cursor: hand");
+        HBox saveBoardContainer = new HBox(saveBoard);
+        HBox.setHgrow(saveBoardContainer, Priority.ALWAYS);
+        saveBoardContainer.setAlignment(Pos.CENTER_RIGHT);
+
+        HBox buttonSection = new HBox(addTaskContainer, saveBoardContainer);
+        buttonSection.setPadding(new Insets(10));
+
 
         // Remove Task Input section and moved it into a separate class for the input panel
 
 
-        // Task display section ----------------------------------------------------------------
 
-        this.getChildren().addAll(pageHeader, pageBody);
+        this.getChildren().addAll(pageHeader, pageBody, buttonSection);
         this.setSpacing(10);
         this.setPadding(new Insets(20, 10, 20, 10));
 
