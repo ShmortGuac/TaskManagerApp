@@ -1,5 +1,7 @@
 package org.example.taskmanagerapp;
 
+import javafx.scene.layout.VBox;
+
 import java.time.LocalDate;
 
 public class WorkTask extends Task{
@@ -24,6 +26,9 @@ public class WorkTask extends Task{
         this.description = description;
     }
 
-
+    @Override
+    public VBox displayProperties(){
+        return new VBox();
+    }
 
 }

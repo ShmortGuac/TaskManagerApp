@@ -147,15 +147,15 @@ public class AddTaskPanel extends Stage {
         Scene scene = new Scene(root, 530, 600);
 
         this.setScene(scene);
-        this.show();
+        this.showAndWait();
     }
 
     private static Task createTask(String taskName, String category, LocalDate dueDate, String priority, String subject, String description){
         return switch (category) {
-            case "General" -> new Task(taskName, category, dueDate, priority);
+            case "General" -> new GeneralTask(taskName, category, dueDate, priority);
             case "Study" -> new StudyTask(taskName, category, dueDate, priority, subject);
             case "Work" -> new WorkTask(taskName, category, dueDate, priority, description);
-            default -> new Task();
+            default -> new GeneralTask();
         };
     }
 

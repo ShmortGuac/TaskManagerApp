@@ -9,6 +9,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.Locale;
+
 
 public class TaskBoardPage extends VBox {
 
@@ -62,6 +66,7 @@ public class TaskBoardPage extends VBox {
 
         ComboBox<String> taskFilter = new ComboBox<String>();
         taskFilter.setPrefWidth(128);
+        taskFilter.getItems().addAll("General", "Study", "Work");
 
         HBox filterContainer = new HBox(10, new ImageView(Icon.FILTER.show()), taskFilter);
 
@@ -86,40 +91,13 @@ public class TaskBoardPage extends VBox {
         taskDetailsLabel.setStyle("-fx-text-fill: white");
         taskDetailsLabel.setPrefHeight(30);
 
-        TextField taskName = new TextField("Task Name");
-        taskName.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-background-color: black;");
-        taskName.setPrefHeight(50);
-        taskName.setAlignment(Pos.CENTER);
+        VBox taskDetailsBox = new VBox();
+        taskDetailsBox.getChildren().add(new TaskDetails());
 
-        VBox taskAttributes = new VBox();
-        VBox.setVgrow(taskAttributes, Priority.ALWAYS);
-        taskList.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->{
-            taskAttributes.getChildren().clear();
-            taskAttributes.getChildren().add(newVal.displayProperties());
-            taskName.setText(newVal.getTaskName());
+        taskList.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            taskDetailsBox.getChildren().clear();
+            taskDetailsBox.getChildren().add(new TaskDetails((GeneralTask) newVal));
         });
-
-
-
-        Button editTask = new Button("Edit Task", new ImageView(Icon.EDIT.show()));
-        editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
-        HBox.setHgrow(editTask, Priority.ALWAYS);
-        editTask.setMaxWidth(Double.MAX_VALUE);
-        editTask.setPrefHeight(45);
-        editTask.setGraphicTextGap(10);
-
-        Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));
-        deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand");
-        HBox.setHgrow(deleteTask, Priority.ALWAYS);
-        deleteTask.setMaxWidth(Double.MAX_VALUE);
-        deleteTask.setPrefHeight(45);
-        deleteTask.setGraphicTextGap(10);
-
-        HBox taskButtons = new HBox(10, editTask, deleteTask);
-
-        VBox taskDetailsBox = new VBox(taskName, taskAttributes, taskButtons);
-        taskDetailsBox.setPadding(new Insets(10));
-        taskDetailsBox.setStyle("-fx-border-color: white; -fx-border-width: 3;");
 
         VBox taskDetails = new VBox(10, taskDetailsLabel, taskDetailsBox);
         VBox.setVgrow(taskDetailsBox, Priority.ALWAYS);
@@ -175,5 +153,9 @@ public class TaskBoardPage extends VBox {
 
 
     }
+
+
+
+
 
 }
