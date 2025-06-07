@@ -219,7 +219,7 @@ public class TaskDetails extends VBox {
         editTask.setPrefHeight(45);
         editTask.setGraphicTextGap(10);
         editTask.setOnAction(e->{
-            StudyTask selectedTask = (StudyTask) TaskBoardPage.taskList.getSelectionModel().getSelectedItem();
+            StudyTask selectedTask = (StudyTask) TaskBoardPage.taskListView.getSelectionModel().getSelectedItem();
             editTask(selectedTask, taskName.getText(), categoryField.getText(), dueDateField.getValue(), priorityField.getValue(), subjectField.getText());
         });
 
@@ -322,7 +322,7 @@ public class TaskDetails extends VBox {
         editTask.setPrefHeight(45);
         editTask.setGraphicTextGap(10);
         editTask.setOnAction(e->{
-            WorkTask selectedTask = (WorkTask) TaskBoardPage.taskList.getSelectionModel().getSelectedItem();
+            WorkTask selectedTask = (WorkTask) TaskBoardPage.taskListView.getSelectionModel().getSelectedItem();
             editTask(selectedTask, taskName.getText(), categoryField.getText(), dueDateField.getValue(), priorityField.getValue(), descriptionArea.getText());
         });
 
@@ -346,14 +346,14 @@ public class TaskDetails extends VBox {
 
 
     private static void deleteTask(){
-        int selectedIdx = TaskBoardPage.taskList.getSelectionModel().getSelectedIndex();
+        int selectedIdx = TaskBoardPage.taskListView.getSelectionModel().getSelectedIndex();
         if(selectedIdx != -1){
-            TaskBoardPage.taskList.getItems().remove(selectedIdx);
+            TaskBoardPage.taskListView.getItems().remove(selectedIdx);
         }
     }
 
     private static void editTask(String taskName, String category, LocalDate dueDate, String priority){
-        Task selectedTask = TaskBoardPage.taskList.getSelectionModel().getSelectedItem();
+        Task selectedTask = TaskBoardPage.taskListView.getSelectionModel().getSelectedItem();
         if(selectedTask != null){
             if(TaskValidator.validateTask(taskName, category, dueDate, priority)){
                 selectedTask.setTaskName(taskName);

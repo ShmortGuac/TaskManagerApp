@@ -24,8 +24,17 @@ public class StudyTask extends Task{
         this.subject = subject;
     }
 
+    public StudyTask(String taskName, String category, LocalDate dueDate, String priority, String subject, boolean completed){
+        super(taskName, category, dueDate, priority, completed);
+        this.subject = subject;
+    }
+
     public String getSubject(){
         return subject;
+    }
+
+    public String getType(){
+        return "Study";
     }
 
     public void setSubject(String subject){

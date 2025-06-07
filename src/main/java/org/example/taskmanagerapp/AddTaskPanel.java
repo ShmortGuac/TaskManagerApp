@@ -131,7 +131,8 @@ public class AddTaskPanel extends Stage {
             }
 
             if(isValid){
-                TaskBoardPage.taskList.getItems().add(createTask(taskName, taskCategory, dueDate, priority, subject, description));
+                TaskBoardPage.taskListView.getItems().add(createTask(taskName, taskCategory, dueDate, priority, subject, description));
+                TaskBoardPage.taskList.add(createTask(taskName, taskCategory, dueDate, priority, subject, description));
                 this.close();
             }
 

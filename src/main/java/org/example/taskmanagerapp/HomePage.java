@@ -8,7 +8,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
+
+import java.io.File;
 
 public class HomePage extends VBox {
 
@@ -20,7 +23,7 @@ public class HomePage extends VBox {
     private int buttonHeight = 50;
     private int buttonWidth = 343;
 
-    public HomePage() {
+    public HomePage(TaskManagerApp app) {
 
         Image nexusLogo = new Image("file:src/main/images/Nexus.png");
         ImageView imageView = new ImageView(nexusLogo);
@@ -35,6 +38,9 @@ public class HomePage extends VBox {
 
         newTaskBoard.setPrefHeight(buttonHeight);
         newTaskBoard.setPrefWidth(buttonWidth);
+        newTaskBoard.setOnAction(e->{
+            app.showTaskBoardPage();
+        });
         newTaskBoard.setOnMouseEntered(e->{
             ScaleTransition st = new ScaleTransition(Duration.seconds(0.2), newTaskBoard);
             st.setFromX(1);
@@ -75,6 +81,16 @@ public class HomePage extends VBox {
             st.setInterpolator(Interpolator.EASE_OUT);
             st.play();
         });
+        loadTaskBoard.setOnAction(e->{
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open File");
+            fileChooser.setInitialDirectory(new File("src/main/savedBoards"));
+            File selectedFile = fileChooser.showOpenDialog(app.getPrimaryStage());
+
+            FileHandler fileHandler = new FileHandler(selectedFile);
+            app.showTaskBoardPage(fileHandler.getLoadedTask());
+        });
+
 
 
         exit.setPrefHeight(buttonHeight);

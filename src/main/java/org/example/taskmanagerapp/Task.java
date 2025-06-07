@@ -30,6 +30,14 @@ public abstract class Task {
         this.completed = false;
     }
 
+    public Task(String taskName, String category, LocalDate dueDate, String priority, boolean completed) {
+        this.taskName = taskName;
+        this.category = category;
+        this.dueDate = dueDate;
+        this.priority = priority;
+        this.completed = completed;
+    }
+
     public String getTaskName() {
         return taskName;
     }
@@ -69,6 +77,8 @@ public abstract class Task {
     public void setCompleted(boolean completed){
         this.completed = completed;
     }
+
+    public abstract String getType();
 
     public abstract VBox displayProperties();
 

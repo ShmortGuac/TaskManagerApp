@@ -8,19 +8,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.Locale;
+import java.io.File;
+import java.util.ArrayList;
 
 
 public class TaskBoardPage extends VBox {
 
     public HBox backButton;
 
-    public static ListView<Task> taskList;
+    public static ArrayList<Task> taskList = new ArrayList<>();
+    public static ListView<Task> taskListView;
 
-    public TaskBoardPage(){
+    public TaskBoardPage(TaskManagerApp app, ArrayList<Task> taskArrayList){
 
         // Page Header---------------------------------------------------------
 
@@ -38,6 +39,9 @@ public class TaskBoardPage extends VBox {
         backButton = new HBox(5, new ImageView(Icon.BACK.show()), backLabel);
         backButton.setAlignment(Pos.CENTER_LEFT);
         backButton.setStyle("-fx-cursor: hand");
+        backButton.setOnMouseClicked(e->{
+            app.showHomePage();
+        });
 
         HBox backContainer = new HBox(backButton);
         HBox.setHgrow(backContainer, Priority.ALWAYS);
@@ -66,7 +70,22 @@ public class TaskBoardPage extends VBox {
 
         ComboBox<String> taskFilter = new ComboBox<String>();
         taskFilter.setPrefWidth(128);
-        taskFilter.getItems().addAll("General", "Study", "Work");
+        taskFilter.getItems().addAll("None", "General", "Study", "Work");
+        taskFilter.setValue("None");
+        taskFilter.setOnAction(e->{
+            taskListView.getItems().clear();
+            if (!taskFilter.getValue().equalsIgnoreCase("None")) {
+                for(Task task: taskList){
+                    if(task.getCategory().equalsIgnoreCase(taskFilter.getValue())){
+                        taskListView.getItems().add(task);
+                    }
+                }
+            }else{
+                for(Task task: taskList){
+                    taskListView.getItems().add(task);
+                }
+            }
+        });
 
         HBox filterContainer = new HBox(10, new ImageView(Icon.FILTER.show()), taskFilter);
 
@@ -75,10 +94,19 @@ public class TaskBoardPage extends VBox {
         taskBoardHeader.setAlignment(Pos.CENTER_LEFT);
         taskBoardHeader.setPrefHeight(30);
 
-        taskList = new ListView<Task>();
 
-        VBox taskBoard = new VBox(10, taskBoardHeader, taskList);
-        VBox.setVgrow(taskList, Priority.ALWAYS);
+        taskListView = new ListView<Task>();
+        taskListView.setStyle("-fx-font-size: 20;");
+        if(!taskArrayList.isEmpty()){
+            for(Task task: taskArrayList){
+                taskList.add(task);
+                taskListView.getItems().add(task);
+            }
+        }
+
+
+        VBox taskBoard = new VBox(10, taskBoardHeader, taskListView);
+        VBox.setVgrow(taskListView, Priority.ALWAYS);
         taskBoard.setPadding(new Insets(10));
         // Task List Section--------------------------------
 
@@ -94,7 +122,7 @@ public class TaskBoardPage extends VBox {
         VBox taskDetailsBox = new VBox(new TaskDetails());
         VBox.setVgrow(taskDetailsBox, Priority.ALWAYS);
 
-        taskList.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+        taskListView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             taskDetailsBox.getChildren().clear();
             if (newVal != null) {
                 taskDetailsBox.getChildren().add(newVal.displayProperties());
@@ -136,6 +164,20 @@ public class TaskBoardPage extends VBox {
         saveBoard.setGraphicTextGap(10);
         saveBoard.setPadding(new Insets(10, 15, 10, 10));
         saveBoard.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 16; -fx-cursor: hand");
+        saveBoard.setOnAction(e->{
+            ArrayList<Task> savedTasks = new ArrayList<>(taskListView.getItems());
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialDirectory(new File("src/main/savedBoards"));
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("Task Board Files (*.csv)", "*.csv")
+            );
+
+            File saveFile = fileChooser.showSaveDialog(app.getPrimaryStage());
+            FileHandler fileHandler = new FileHandler();
+
+            fileHandler.saveBoard(saveFile, savedTasks);
+
+        });
         HBox saveBoardContainer = new HBox(saveBoard);
         HBox.setHgrow(saveBoardContainer, Priority.ALWAYS);
         saveBoardContainer.setAlignment(Pos.CENTER_RIGHT);
@@ -155,10 +197,7 @@ public class TaskBoardPage extends VBox {
         this.setStyle("-fx-background-color: black;");
 
 
-
     }
-
-
 
 
 

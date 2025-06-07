@@ -18,8 +18,17 @@ public class WorkTask extends Task{
         this.description = description;
     }
 
+    public WorkTask(String taskName, String category, LocalDate dueDate, String priority, String description, boolean completed){
+        super(taskName, category, dueDate, priority, completed);
+        this.description = description;
+    }
+
     public String getDescription(){
         return description;
+    }
+
+    public String getType(){
+        return "Work";
     }
 
     public void setDescription(String description){
