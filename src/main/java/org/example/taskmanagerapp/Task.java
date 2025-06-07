@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
 
+@SuppressWarnings("unused")
 public class Task {
  
     private String taskName;
@@ -81,6 +82,7 @@ public class Task {
         categoryField.setPrefHeight(35);
         categoryField.setEditable(false);
         categoryField.setStyle("-fx-background-radius: 0");
+        categoryField.setText(category);
         HBox category = new HBox(10, categoryLabel, categoryField);
         category.setAlignment(Pos.CENTER);
 
@@ -90,6 +92,7 @@ public class Task {
         DatePicker dueDateField = new DatePicker();
         dueDateField.setPrefWidth(150);
         dueDateField.setPrefHeight(35);
+        dueDateField.setValue(dueDate);
         dueDateField.setStyle("-fx-background-radius: 0");
         HBox dueDate = new HBox(10, dueDateLabel, dueDateField);
         dueDate.setAlignment(Pos.CENTER);
@@ -102,6 +105,7 @@ public class Task {
         priorityField.setPrefWidth(150);
         priorityField.setPrefHeight(35);
         priorityField.setEditable(false);
+        priorityField.setValue(priority);
         priorityField.setStyle("-fx-background-radius: 0");
         HBox priority = new HBox(10, priorityLabel, priorityField);
         priority.setAlignment(Pos.CENTER);
@@ -124,10 +128,9 @@ public class Task {
     }
 
 
-
     @Override
     public String toString(){
-        return "Task : " + taskName + ", Category : " + category + ", Due Date : " + dueDate + ", Priority : " + priority;
+        return taskName;
     }
 
 }

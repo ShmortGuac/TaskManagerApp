@@ -37,7 +37,7 @@ public class TaskManagerApp extends Application{
 
         StackPane root = new StackPane(homePage, taskBoardPage);
 
-        Scene scene = new Scene(root, 900, 600);
+        Scene scene = new Scene(root, 900, 700);
         stage.setTitle("Task Manager App");
         stage.setScene(scene);
         stage.show();

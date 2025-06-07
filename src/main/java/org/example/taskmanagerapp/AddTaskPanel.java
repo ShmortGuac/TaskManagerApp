@@ -4,15 +4,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+import java.util.Objects;
+
 public class AddTaskPanel extends Stage {
 
-    Image addIcon = new Image("file:src/main/images/add.png");
-    ImageView addIconView = new ImageView(addIcon);
 
     public AddTaskPanel(){
         super();
@@ -28,7 +28,7 @@ public class AddTaskPanel extends Stage {
         taskNameLabel.setStyle("-fx-font-size: 18; -fx-text-fill: white; -fx-underline: true");
         TextField taskNameField = new TextField();
         taskNameField.setStyle("-fx-font-size: 14");
-        VBox taskName = new VBox(10, taskNameLabel, taskNameField);
+        VBox taskNameInput = new VBox(10, taskNameLabel, taskNameField);
 
         Label categoryLabel = new Label("Task Category");
         categoryLabel.setStyle("-fx-font-size: 18; -fx-text-fill: white; -fx-underline: true");
@@ -50,66 +50,91 @@ public class AddTaskPanel extends Stage {
         categoryButtons.setLeft(generalTask);
         categoryButtons.setCenter(studyTask);
         categoryButtons.setRight(workTask);
-        VBox category = new VBox(10, categoryLabel, categoryButtons);
+        VBox categoryInput = new VBox(10, categoryLabel, categoryButtons);
 
         Label dueDateLabel = new Label("Due Date");
         dueDateLabel.setStyle("-fx-font-size: 18; -fx-text-fill: white; -fx-underline: true");
         DatePicker dueDateField = new DatePicker();
         dueDateField.setStyle("-fx-font-size: 14");
         dueDateField.setPrefWidth(Double.MAX_VALUE);
-        VBox dueDate = new VBox(10, dueDateLabel, dueDateField);
+        dueDateField.setValue(LocalDate.now());
+        VBox dueDateInput = new VBox(10, dueDateLabel, dueDateField);
 
         Label priorityLabel = new Label("Priority");
         priorityLabel.setStyle("-fx-font-size: 18; -fx-text-fill: white; -fx-underline: true");
-        ComboBox<TaskPriority> priorityField = new ComboBox<>();
-        priorityField.getItems().addAll(TaskPriority.values());
+        ComboBox<String> priorityField = new ComboBox<>();
+        priorityField.getItems().addAll("LOW", "MEDIUM", "HIGH");
         priorityField.setPrefWidth(Double.MAX_VALUE);
         priorityField.setStyle("-fx-font-size: 14");
-        VBox priority = new VBox(10, priorityLabel, priorityField);
+        priorityField.setValue("LOW");
+        VBox priorityInput = new VBox(10, priorityLabel, priorityField);
 
         Label subjectLabel = new Label("Subject");
         subjectLabel.setStyle("-fx-font-size: 18; -fx-text-fill: white; -fx-underline: true");
         TextField subjectField = new TextField();
         subjectField.setStyle("-fx-font-size: 14");
-        VBox subject = new VBox(10, subjectLabel, subjectField);
-        subject.setVisible(false);
+        VBox subjectInput = new VBox(10, subjectLabel, subjectField);
+        subjectInput.setVisible(false);
 
         Label descriptionLabel = new Label("Work Description");
         descriptionLabel.setStyle("-fx-font-size: 18; -fx-text-fill: white; -fx-underline: true");
         TextArea descriptionArea = new TextArea();
         descriptionArea.setStyle("-fx-font-size: 14");
-        VBox description = new VBox(10, descriptionLabel, descriptionArea);
-        description.setVisible(false);
+        VBox descriptionInput = new VBox(10, descriptionLabel, descriptionArea);
+        descriptionInput.setVisible(false);
 
-        StackPane additionalFields = new StackPane(subject, description);
+        StackPane additionalFields = new StackPane(subjectInput, descriptionInput);
 
         categoryGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         RadioButton selected = (RadioButton) newValue;
                         switch (selected.getText()){
                             case "General":
-                                subject.setVisible(false);
-                                description.setVisible(false);
+                                subjectInput.setVisible(false);
+                                descriptionInput.setVisible(false);
                                 break;
                             case "Study":
-                                subject.setVisible(true);
-                                description.setVisible(false);
+                                subjectInput.setVisible(true);
+                                descriptionInput.setVisible(false);
+                                subjectField.setText("");
                                 break;
                             case "Work":
-                                subject.setVisible(false);
-                                description.setVisible(true);
+                                subjectInput.setVisible(false);
+                                descriptionInput.setVisible(true);
+                                descriptionArea.setText("");
                         }
                     }
                 });
 
-        VBox inputSection = new VBox(15, taskName, category, dueDate, priority, additionalFields);
+        VBox inputSection = new VBox(15, taskNameInput, categoryInput, dueDateInput, priorityInput, additionalFields);
         inputSection.setPadding(new Insets(10));
 
         Button addButton = new Button("Add Task", new ImageView(Icon.ADD.show()));
         addButton.setPadding(new Insets(10, 15, 10, 15));
         addButton.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-cursor: hand");
         addButton.setOnAction(e->{
-            this.close();
+            RadioButton selectedRadio = (RadioButton) categoryGroup.getSelectedToggle();
+
+            String taskName = taskNameField.getText();
+            String taskCategory = selectedRadio.getText();
+            LocalDate dueDate = dueDateField.getValue();
+            String priority = priorityField.getValue();
+            String subject = subjectField.getText();
+            String description = descriptionArea.getText();
+
+            boolean isValid;
+
+            if(Objects.equals(taskCategory, "Study")){
+                isValid = TaskValidator.validateTask(taskName, taskCategory, dueDate, priority, subject);
+            }else{
+                isValid = TaskValidator.validateTask(taskName, taskCategory, dueDate,priority);
+            }
+
+            if(isValid){
+                TaskBoardPage.taskList.getItems().add(createTask(taskName, taskCategory, dueDate, priority, subject, description));
+                this.close();
+            }
+
         });
         VBox buttonSection = new VBox(addButton);
         buttonSection.setAlignment(Pos.CENTER);
@@ -123,6 +148,15 @@ public class AddTaskPanel extends Stage {
 
         this.setScene(scene);
         this.show();
+    }
+
+    private static Task createTask(String taskName, String category, LocalDate dueDate, String priority, String subject, String description){
+        return switch (category) {
+            case "General" -> new Task(taskName, category, dueDate, priority);
+            case "Study" -> new StudyTask(taskName, category, dueDate, priority, subject);
+            case "Work" -> new WorkTask(taskName, category, dueDate, priority, description);
+            default -> new Task();
+        };
     }
 
 }

@@ -14,6 +14,7 @@ public class TaskBoardPage extends VBox {
 
     public HBox backButton;
 
+    public static ListView<Task> taskList;
 
     public TaskBoardPage(){
 
@@ -69,7 +70,7 @@ public class TaskBoardPage extends VBox {
         taskBoardHeader.setAlignment(Pos.CENTER_LEFT);
         taskBoardHeader.setPrefHeight(30);
 
-        ListView<String> taskList = new ListView<String>();
+        taskList = new ListView<Task>();
 
         VBox taskBoard = new VBox(10, taskBoardHeader, taskList);
         VBox.setVgrow(taskList, Priority.ALWAYS);
@@ -90,7 +91,15 @@ public class TaskBoardPage extends VBox {
         taskName.setPrefHeight(50);
         taskName.setAlignment(Pos.CENTER);
 
-        VBox taskAttributes = new Task().displayProperties();
+        VBox taskAttributes = new VBox();
+        VBox.setVgrow(taskAttributes, Priority.ALWAYS);
+        taskList.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->{
+            taskAttributes.getChildren().clear();
+            taskAttributes.getChildren().add(newVal.displayProperties());
+            taskName.setText(newVal.getTaskName());
+        });
+
+
 
         Button editTask = new Button("Edit Task", new ImageView(Icon.EDIT.show()));
         editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
