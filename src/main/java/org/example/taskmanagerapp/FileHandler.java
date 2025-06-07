@@ -22,15 +22,15 @@ public class FileHandler {
             while(fileReader.hasNextLine()){
                 String task = fileReader.nextLine();
                 String[] taskData = task.split(",");
-                String taskName = taskData[1];
-                String category = taskData[2];
-                String dueDate = taskData[3];
-                String priority = taskData[4];
-                String subject = taskData[5];
-                String description = taskData[6];
-                String completed = taskData[7];
+                String taskName = taskData[0];
+                String category = taskData[1];
+                String dueDate = taskData[2];
+                String priority = taskData[3];
+                String subject = taskData[4];
+                String description = taskData[5];
+                String completed = taskData[6];
 
-                switch(taskData[0].toLowerCase()){
+                switch(taskData[1].toLowerCase()){
                     case "general":
                         taskArrayList.add(new GeneralTask(taskName, category, LocalDate.parse(dueDate), priority, Boolean.parseBoolean(completed)));
                         break;
@@ -51,7 +51,6 @@ public class FileHandler {
         if(saveFile != null){
             try(FileWriter writer = new FileWriter(saveFile, true)){
                 for(Task task : savedTasks){
-                    String taskType = task.getType();
                     String taskName = task.getTaskName();
                     String category = task.getCategory();
                     String dueDate = task.getDueDate().format(DateTimeFormatter.ISO_DATE);
@@ -60,14 +59,14 @@ public class FileHandler {
                     String description = "None";
                     String completed = String.valueOf(task.isCompleted());
 
-                    switch (taskType.toLowerCase()) {
+                    switch (category.toLowerCase()) {
                         case "study":
                             subject = ((StudyTask) task).getSubject();
                             break;
                         case "work":
                             description = ((WorkTask) task).getDescription();
                     }
-                    writer.write(taskType + "," +taskName + "," + category + "," + dueDate + "," + priority + "," + subject + "," + description + "," + completed + ";");
+                    writer.write(taskName + "," + category + "," + dueDate + "," + priority + "," + subject + "," + description + "," + completed + "\n");
 
                 }
             } catch (IOException e) {

@@ -33,10 +33,6 @@ public class StudyTask extends Task{
         return subject;
     }
 
-    public String getType(){
-        return "Study";
-    }
-
     public void setSubject(String subject){
         this.subject = subject;
     }

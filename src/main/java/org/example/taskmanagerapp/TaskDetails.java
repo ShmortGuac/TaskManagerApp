@@ -102,7 +102,10 @@ public class TaskDetails extends VBox {
         statusBox.setScaleX(1.2);
         statusBox.setScaleY(1.2);
         statusBox.setSelected(task.isCompleted());
-        statusBox.setOnAction(e-> task.setCompleted(!task.isCompleted()));
+        statusBox.setOnAction(e-> {
+            task.setCompleted(!task.isCompleted());
+            TaskBoardPage.taskListView.getSelectionModel().clearSelection();
+        });
         HBox status = new HBox(10, statusLabel,statusBox);
         status.setAlignment(Pos.CENTER_LEFT);
 
@@ -117,7 +120,10 @@ public class TaskDetails extends VBox {
         editTask.setMaxWidth(Double.MAX_VALUE);
         editTask.setPrefHeight(45);
         editTask.setGraphicTextGap(10);
-        editTask.setOnAction(e-> editTask(taskName.getText(), categoryField.getText(), dueDateField.getValue(), priorityField.getValue()));
+        editTask.setOnAction(e-> {
+            editTask(taskName.getText(), categoryField.getText(), dueDateField.getValue(), priorityField.getValue());
+            TaskBoardPage.taskListView.getSelectionModel().clearSelection();
+        });
 
         Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));
         deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand");
@@ -203,7 +209,10 @@ public class TaskDetails extends VBox {
         statusBox.setScaleX(1.2);
         statusBox.setScaleY(1.2);
         statusBox.setSelected(task.isCompleted());
-        statusBox.setOnAction(e-> task.setCompleted(!task.isCompleted()));
+        statusBox.setOnAction(e-> {
+            task.setCompleted(!task.isCompleted());
+            TaskBoardPage.taskListView.getSelectionModel().clearSelection();
+        });
         HBox status = new HBox(10, statusLabel,statusBox);
         status.setAlignment(Pos.CENTER_LEFT);
 
@@ -221,6 +230,7 @@ public class TaskDetails extends VBox {
         editTask.setOnAction(e->{
             StudyTask selectedTask = (StudyTask) TaskBoardPage.taskListView.getSelectionModel().getSelectedItem();
             editTask(selectedTask, taskName.getText(), categoryField.getText(), dueDateField.getValue(), priorityField.getValue(), subjectField.getText());
+            TaskBoardPage.taskListView.getSelectionModel().clearSelection();
         });
 
         Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));
@@ -306,7 +316,10 @@ public class TaskDetails extends VBox {
         statusBox.setScaleX(1.2);
         statusBox.setScaleY(1.2);
         statusBox.setSelected(task.isCompleted());
-        statusBox.setOnAction(e-> task.setCompleted(!task.isCompleted()));
+        statusBox.setOnAction(e-> {
+            task.setCompleted(!task.isCompleted());
+            TaskBoardPage.taskListView.getSelectionModel().clearSelection();
+        });
         HBox status = new HBox(10, statusLabel,statusBox);
         status.setAlignment(Pos.CENTER_LEFT);
 
@@ -324,6 +337,7 @@ public class TaskDetails extends VBox {
         editTask.setOnAction(e->{
             WorkTask selectedTask = (WorkTask) TaskBoardPage.taskListView.getSelectionModel().getSelectedItem();
             editTask(selectedTask, taskName.getText(), categoryField.getText(), dueDateField.getValue(), priorityField.getValue(), descriptionArea.getText());
+            TaskBoardPage.taskListView.getSelectionModel().clearSelection();
         });
 
         Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));

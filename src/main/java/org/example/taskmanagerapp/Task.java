@@ -78,14 +78,16 @@ public abstract class Task {
         this.completed = completed;
     }
 
-    public abstract String getType();
-
     public abstract VBox displayProperties();
 
 
     @Override
     public String toString(){
-        return taskName;
+        if(isCompleted()) {
+            return "✔" + taskName;
+        }else {
+            return taskName;
+        }
     }
 
 }

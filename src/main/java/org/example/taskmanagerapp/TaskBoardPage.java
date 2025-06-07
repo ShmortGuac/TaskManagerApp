@@ -165,7 +165,6 @@ public class TaskBoardPage extends VBox {
         saveBoard.setPadding(new Insets(10, 15, 10, 10));
         saveBoard.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 16; -fx-cursor: hand");
         saveBoard.setOnAction(e->{
-            ArrayList<Task> savedTasks = new ArrayList<>(taskListView.getItems());
             FileChooser fileChooser = new FileChooser();
             fileChooser.setInitialDirectory(new File("src/main/savedBoards"));
             fileChooser.getExtensionFilters().add(
@@ -175,7 +174,7 @@ public class TaskBoardPage extends VBox {
             File saveFile = fileChooser.showSaveDialog(app.getPrimaryStage());
             FileHandler fileHandler = new FileHandler();
 
-            fileHandler.saveBoard(saveFile, savedTasks);
+            fileHandler.saveBoard(saveFile, taskList);
 
         });
         HBox saveBoardContainer = new HBox(saveBoard);

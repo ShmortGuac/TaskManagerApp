@@ -27,9 +27,6 @@ public class WorkTask extends Task{
         return description;
     }
 
-    public String getType(){
-        return "Work";
-    }
 
     public void setDescription(String description){
         this.description = description;

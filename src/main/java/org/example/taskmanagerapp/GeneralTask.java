@@ -18,9 +18,6 @@ public class GeneralTask extends Task {
         super(taskName, category, dueDate, priority, completed);
     }
 
-    public String getType(){
-        return "General";
-    }
 
     @Override
     public VBox displayProperties(){
