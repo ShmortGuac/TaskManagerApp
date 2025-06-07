@@ -16,7 +16,7 @@ public class GeneralTask extends Task {
 
     @Override
     public VBox displayProperties(){
-        return new VBox();
+        return new TaskDetails(this);
     }
 
 }

@@ -91,17 +91,21 @@ public class TaskBoardPage extends VBox {
         taskDetailsLabel.setStyle("-fx-text-fill: white");
         taskDetailsLabel.setPrefHeight(30);
 
-        VBox taskDetailsBox = new VBox();
-        taskDetailsBox.getChildren().add(new TaskDetails());
+        VBox taskDetailsBox = new VBox(new TaskDetails());
+        VBox.setVgrow(taskDetailsBox, Priority.ALWAYS);
 
         taskList.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             taskDetailsBox.getChildren().clear();
-            taskDetailsBox.getChildren().add(new TaskDetails((GeneralTask) newVal));
+            if (newVal != null) {
+                taskDetailsBox.getChildren().add(newVal.displayProperties());
+            }else{
+                taskDetailsBox.getChildren().add(new TaskDetails());
+            }
         });
 
         VBox taskDetails = new VBox(10, taskDetailsLabel, taskDetailsBox);
         VBox.setVgrow(taskDetailsBox, Priority.ALWAYS);
-        taskDetails.setPrefWidth(350);
+        taskDetails.setPrefWidth(450);
         taskDetails.setPadding(new Insets(10));
 
 
