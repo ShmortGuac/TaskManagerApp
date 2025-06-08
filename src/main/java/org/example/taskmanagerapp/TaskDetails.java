@@ -360,8 +360,10 @@ public class TaskDetails extends VBox {
 
 
     private static void deleteTask(){
+        Task selectedTask = TaskBoardPage.taskListView.getSelectionModel().getSelectedItem();
         int selectedIdx = TaskBoardPage.taskListView.getSelectionModel().getSelectedIndex();
         if(selectedIdx != -1){
+            TaskBoardPage.taskList.remove(selectedTask);
             TaskBoardPage.taskListView.getItems().remove(selectedIdx);
         }
     }

@@ -25,8 +25,6 @@ public class TaskBoardPage extends VBox {
 
         // Page Header---------------------------------------------------------
 
-        Image backLogo = new Image("file:src/main/images/arrow_back.png");
-        ImageView backLogoView = new ImageView(backLogo);
 
         Label backLabel = new Label("Back");
         backLabel.setStyle("-fx-text-fill: white; -fx-font-size: 16");

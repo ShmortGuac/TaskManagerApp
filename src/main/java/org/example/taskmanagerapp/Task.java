@@ -84,7 +84,7 @@ public abstract class Task {
     @Override
     public String toString(){
         if(isCompleted()) {
-            return "✔" + taskName;
+            return "✔ " + taskName;
         }else {
             return taskName;
         }
