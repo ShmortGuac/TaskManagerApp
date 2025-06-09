@@ -1,9 +1,6 @@
 package org.example.taskmanagerapp;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -49,7 +46,7 @@ public class FileHandler {
 
     public void saveBoard(File saveFile, ArrayList<Task> savedTasks){
         if(saveFile != null){
-            try(FileWriter writer = new FileWriter(saveFile, true)){
+            try(FileWriter writer = new FileWriter(saveFile)){
                 for(Task task : savedTasks){
                     String taskName = task.getTaskName();
                     String category = task.getCategory();
