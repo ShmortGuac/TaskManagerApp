@@ -112,6 +112,12 @@ public class AddTaskPanel extends Stage {
         Button addButton = new Button("Add Task", new ImageView(Icon.ADD.show()));
         addButton.setPadding(new Insets(10, 15, 10, 15));
         addButton.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-cursor: hand");
+        addButton.setOnMouseEntered(e -> {
+            addButton.setStyle("-fx-background-color: #00AA00; -fx-text-fill: white; -fx-font-size: 16; -fx-cursor: hand; ");
+        });
+        addButton.setOnMouseExited(e -> {
+            addButton.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 16; -fx-cursor: hand;");
+        });
         addButton.setOnAction(e->{
             RadioButton selectedRadio = (RadioButton) categoryGroup.getSelectedToggle();
 

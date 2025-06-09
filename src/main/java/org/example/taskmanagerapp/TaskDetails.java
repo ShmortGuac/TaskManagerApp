@@ -59,8 +59,6 @@ public class TaskDetails extends VBox {
         this.setPadding(new Insets(10));
         VBox.setVgrow(this, Priority.ALWAYS);
         this.setStyle("-fx-border-color: white; -fx-border-width: 3;");
-
-
     }
 
     public TaskDetails(GeneralTask task){
@@ -135,9 +133,15 @@ public class TaskDetails extends VBox {
         editTask.setMaxWidth(Double.MAX_VALUE);
         editTask.setPrefHeight(45);
         editTask.setGraphicTextGap(10);
+
+        editTask.setOnMouseEntered(e -> {
+            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #0066FF; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+        editTask.setOnMouseExited(e -> {
+            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand;");
+        });
         editTask.setOnAction(e-> {
-            editTask(taskName.getText(), categoryField.getText(), dueDateField.getValue(), priorityField.getValue());
-            TaskBoardPage.taskListView.getSelectionModel().clearSelection();
+            enableEditMode(taskName, categoryField, dueDateField, priorityField, task);
         });
 
         Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));
@@ -146,6 +150,13 @@ public class TaskDetails extends VBox {
         deleteTask.setMaxWidth(Double.MAX_VALUE);
         deleteTask.setPrefHeight(45);
         deleteTask.setGraphicTextGap(10);
+
+        deleteTask.setOnMouseEntered(e -> {
+            deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #FF6666; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+        deleteTask.setOnMouseExited(e -> {
+            deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand;");
+        });
         deleteTask.setOnAction(e-> deleteTask());
 
         HBox taskButtons = new HBox(10, editTask, deleteTask);
@@ -154,8 +165,6 @@ public class TaskDetails extends VBox {
         this.setPadding(new Insets(10));
         VBox.setVgrow(this, Priority.ALWAYS);
         this.setStyle("-fx-border-color: white; -fx-border-width: 3;");
-
-
     }
 
     public TaskDetails(StudyTask task){
@@ -242,10 +251,15 @@ public class TaskDetails extends VBox {
         editTask.setMaxWidth(Double.MAX_VALUE);
         editTask.setPrefHeight(45);
         editTask.setGraphicTextGap(10);
+
+        editTask.setOnMouseEntered(e -> {
+            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #0066FF; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+        editTask.setOnMouseExited(e -> {
+            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand;");
+        });
         editTask.setOnAction(e->{
-            StudyTask selectedTask = (StudyTask) TaskBoardPage.taskListView.getSelectionModel().getSelectedItem();
-            editTask(selectedTask, taskName.getText(), categoryField.getText(), dueDateField.getValue(), priorityField.getValue(), subjectField.getText());
-            TaskBoardPage.taskListView.getSelectionModel().clearSelection();
+            enableEditModeStudy(taskName, categoryField, subjectField, dueDateField, priorityField, task);
         });
 
         Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));
@@ -254,6 +268,13 @@ public class TaskDetails extends VBox {
         deleteTask.setMaxWidth(Double.MAX_VALUE);
         deleteTask.setPrefHeight(45);
         deleteTask.setGraphicTextGap(10);
+
+        deleteTask.setOnMouseEntered(e -> {
+            deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #FF6666; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+        deleteTask.setOnMouseExited(e -> {
+            deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand;");
+        });
         deleteTask.setOnAction(e-> deleteTask());
 
         HBox taskButtons = new HBox(10, editTask, deleteTask);
@@ -262,8 +283,6 @@ public class TaskDetails extends VBox {
         this.setPadding(new Insets(10));
         VBox.setVgrow(this, Priority.ALWAYS);
         this.setStyle("-fx-border-color: white; -fx-border-width: 3;");
-
-
     }
 
     public TaskDetails(WorkTask task){
@@ -349,10 +368,15 @@ public class TaskDetails extends VBox {
         editTask.setMaxWidth(Double.MAX_VALUE);
         editTask.setPrefHeight(45);
         editTask.setGraphicTextGap(10);
+
+        editTask.setOnMouseEntered(e -> {
+            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #0066FF; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+        editTask.setOnMouseExited(e -> {
+            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand;");
+        });
         editTask.setOnAction(e->{
-            WorkTask selectedTask = (WorkTask) TaskBoardPage.taskListView.getSelectionModel().getSelectedItem();
-            editTask(selectedTask, taskName.getText(), categoryField.getText(), dueDateField.getValue(), priorityField.getValue(), descriptionArea.getText());
-            TaskBoardPage.taskListView.getSelectionModel().clearSelection();
+            enableEditModeWork(taskName, categoryField, descriptionArea, dueDateField, priorityField, task);
         });
 
         Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));
@@ -361,6 +385,13 @@ public class TaskDetails extends VBox {
         deleteTask.setMaxWidth(Double.MAX_VALUE);
         deleteTask.setPrefHeight(45);
         deleteTask.setGraphicTextGap(10);
+
+        deleteTask.setOnMouseEntered(e -> {
+            deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #FF6666; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+        deleteTask.setOnMouseExited(e -> {
+            deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand;");
+        });
         deleteTask.setOnAction(e-> deleteTask());
 
         HBox taskButtons = new HBox(10, editTask, deleteTask);
@@ -369,10 +400,143 @@ public class TaskDetails extends VBox {
         this.setPadding(new Insets(10));
         VBox.setVgrow(this, Priority.ALWAYS);
         this.setStyle("-fx-border-color: white; -fx-border-width: 3;");
-
-
     }
 
+    private void enableEditMode(TextField taskName, TextField categoryField, DatePicker dueDateField, ComboBox<String> priorityField, GeneralTask task) {
+        boolean isChanged = false;
+
+        if (!taskName.getText().equals(task.getTaskName())) {
+            task.setTaskName(taskName.getText());
+            isChanged = true;
+        }
+        if (!dueDateField.getValue().equals(task.getDueDate())) {
+            task.setDueDate(dueDateField.getValue());
+            isChanged = true;
+        }
+        if (!priorityField.getValue().equals(task.getPriority())) {
+            task.setPriority(priorityField.getValue());
+            isChanged = true;
+        }
+        if (isChanged) {
+            showSaveDialog(taskName, categoryField, dueDateField, priorityField, task);
+        }
+    }
+
+    private void enableEditModeStudy(TextField taskName, TextField categoryField, TextField subjectField, DatePicker dueDateField, ComboBox<String> priorityField, StudyTask task) {
+        boolean isChanged = false;
+
+        if (!taskName.getText().equals(task.getTaskName())) {
+            task.setTaskName(taskName.getText());
+            isChanged = true;
+        }
+        if(!subjectField.getText().equals(task.getSubject())){
+            task.setSubject(subjectField.getText());
+            isChanged = true;
+        }
+        if (!dueDateField.getValue().equals(task.getDueDate())) {
+            task.setDueDate(dueDateField.getValue());
+            isChanged = true;
+        }
+        if (!priorityField.getValue().equals(task.getPriority())) {
+            task.setPriority(priorityField.getValue());
+            isChanged = true;
+        }
+        if (isChanged) {
+            showSaveDialogStudy(taskName, categoryField, subjectField, dueDateField, priorityField, task);
+        }
+    }
+
+    private void enableEditModeWork(TextField taskName, TextField categoryField, TextArea descriptionArea, DatePicker dueDateField, ComboBox<String> priorityField, WorkTask task) {
+        boolean isChanged = false;
+
+        if (!taskName.getText().equals(task.getTaskName())) {
+            task.setTaskName(taskName.getText());
+            isChanged = true;
+        }
+        if (!descriptionArea.getText().equals(task.getDescription())){
+            task.setDescription(descriptionArea.getText());
+            isChanged = true;
+        }
+        if (!dueDateField.getValue().equals(task.getDueDate())) {
+            task.setDueDate(dueDateField.getValue());
+            isChanged = true;
+        }
+        if (!priorityField.getValue().equals(task.getPriority())) {
+            task.setPriority(priorityField.getValue());
+            isChanged = true;
+        }
+        if (isChanged) {
+            showSaveDialogWork(taskName, categoryField, descriptionArea, dueDateField, priorityField, task);
+        }
+    }
+
+    private void showSaveDialog(TextField taskName, TextField categoryField, DatePicker dueDateField, ComboBox<String> priorityField, GeneralTask task) {
+        Alert confirmDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmDialog.setTitle("Save Changes");
+        confirmDialog.setHeaderText("Do you want to save your changes?");
+        confirmDialog.setContentText("Click OK to save the changes or Cancel to discard them.");
+
+        ButtonType saveButton = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        confirmDialog.getButtonTypes().setAll(saveButton, cancelButton);
+
+        Optional<ButtonType> result = confirmDialog.showAndWait();
+        if (result.isPresent() && result.get() == saveButton) {
+            // Only validate when user clicks Save
+            editTask(task, taskName.getText(), categoryField.getText(), dueDateField.getValue(), priorityField.getValue());
+        }
+
+        categoryField.setEditable(false);
+        dueDateField.setDisable(true);
+        priorityField.setDisable(true);
+        TaskBoardPage.taskListView.getSelectionModel().clearSelection();
+    }
+
+    private void showSaveDialogStudy(TextField taskName, TextField categoryField, TextField subjectField, DatePicker dueDateField, ComboBox<String> priorityField, StudyTask task) {
+        Alert confirmDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmDialog.setTitle("Save Changes");
+        confirmDialog.setHeaderText("Do you want to save your changes?");
+        confirmDialog.setContentText("Click OK to save the changes or Cancel to discard them.");
+
+        ButtonType saveButton = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        confirmDialog.getButtonTypes().setAll(saveButton, cancelButton);
+
+        Optional<ButtonType> result = confirmDialog.showAndWait();
+        if (result.isPresent() && result.get() == saveButton) {
+            // Only validate when user clicks Save
+            editTask(task, taskName.getText(), categoryField.getText(), dueDateField.getValue(), priorityField.getValue(), subjectField.getText());
+        }
+
+        categoryField.setEditable(false);
+        subjectField.setEditable(false);
+        dueDateField.setDisable(true);
+        priorityField.setDisable(true);
+        TaskBoardPage.taskListView.getSelectionModel().clearSelection();
+    }
+
+    private void showSaveDialogWork(TextField taskName, TextField categoryField, TextArea descriptionArea, DatePicker dueDateField, ComboBox<String> priorityField, WorkTask task) {
+        Alert confirmDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmDialog.setTitle("Save Changes");
+        confirmDialog.setHeaderText("Do you want to save your changes?");
+        confirmDialog.setContentText("Click OK to save the changes or Cancel to discard them.");
+
+        ButtonType saveButton = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        confirmDialog.getButtonTypes().setAll(saveButton, cancelButton);
+
+        Optional<ButtonType> result = confirmDialog.showAndWait();
+        if (result.isPresent() && result.get() == saveButton) {
+            // Only validate when user clicks Save
+            editTask(task, taskName.getText(), categoryField.getText(), dueDateField.getValue(), priorityField.getValue(), descriptionArea.getText());
+        }
+
+        categoryField.setEditable(false);
+        descriptionArea.setEditable(false);
+        dueDateField.setDisable(true);
+        priorityField.setDisable(true);
+        TaskBoardPage.taskListView.getSelectionModel().clearSelection();
+    }
 
     private static void deleteTask(){
         Task selectedTask = TaskBoardPage.taskListView.getSelectionModel().getSelectedItem();
@@ -412,14 +576,19 @@ public class TaskDetails extends VBox {
         }
     }
 
-    private static void editTask(String taskName, String category, LocalDate dueDate, String priority){
-        Task selectedTask = TaskBoardPage.taskListView.getSelectionModel().getSelectedItem();
-        if(selectedTask != null){
+    private static void editTask(GeneralTask task, String taskName, String category, LocalDate dueDate, String priority){
+        if(task != null){
             if(TaskValidator.validateTask(taskName, category, dueDate, priority)){
-                selectedTask.setTaskName(taskName);
-                selectedTask.setCategory(category);
-                selectedTask.setDueDate(dueDate);
-                selectedTask.setPriority(priority);
+                task.setTaskName(taskName);
+                task.setCategory(category);
+                task.setDueDate(dueDate);
+                task.setPriority(priority);
+
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Task Updated");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("Task has been updated successfully!");
+                successAlert.showAndWait();
             }
         }
     }
@@ -432,20 +601,31 @@ public class TaskDetails extends VBox {
                 task.setDueDate(dueDate);
                 task.setPriority(priority);
                 task.setSubject(subject);
+
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Task Updated");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("Study task has been updated successfully!");
+                successAlert.showAndWait();
             }
         }
     }
 
-    private static void editTask(WorkTask task, String taskName, String category, LocalDate dueDate, String priority, String subject){
+    private static void editTask(WorkTask task, String taskName, String category, LocalDate dueDate, String priority, String description){
         if(task != null){
             if(TaskValidator.validateTask(taskName, category, dueDate, priority)){
                 task.setTaskName(taskName);
                 task.setCategory(category);
                 task.setDueDate(dueDate);
                 task.setPriority(priority);
-                task.setDescription(subject);
+                task.setDescription(description);
+
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Task Updated");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("Work task has been updated successfully!");
+                successAlert.showAndWait();
             }
         }
     }
-
 }
