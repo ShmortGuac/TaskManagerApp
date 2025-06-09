@@ -1,0 +1,115 @@
+Buy groceries,General,2025-06-07,low,Home,Get milk and eggs,TRUE
+Math Homework,Study,2025-06-10,high,Math,Complete calculus exercises,FALSE
+Project Report,Work,2025-06-12,medium,Reporting,Finalize draft for manager,TRUE
+Call plumber,General,2025-06-15,low,Maintenance,Fix the kitchen sink,FALSE
+Read Chapter 5,Study,2025-06-17,medium,Physics,Textbook reading,TRUE
+Client Meeting,Work,2025-06-20,high,Presentation,Prepare presentation deck,FALSE
+Doctor Appointment,General,2025-06-21,medium,Health,Annual check-up,FALSE
+Flashcards,Study,2025-06-23,low,English,Review vocabulary flashcards,TRUE
+Submit Invoice,Work,2025-06-25,high,Finance,Submit by end of day,TRUE
+Gym,General,2025-06-27,high,Fitness,Leg day workout,TRUE
+Group Study,Study,2025-06-28,low,Teamwork,Meet with study group,FALSE
+Code Review,Work,2025-06-29,medium,Development,Review junior dev PR,TRUE
+Clean House,General,2025-07-01,medium,Chores,Weekend cleaning routine,FALSE
+Practice Test,Study,2025-07-02,high,Exam Prep,Timed practice session,TRUE
+Team Sync,Work,2025-07-04,low,Meeting,Weekly team catch-up,FALSE
+Birthday Party,General,2025-07-06,high,Personal,Buy gifts and wrap,FALSE
+Lab Report,Study,2025-07-07,medium,Chemistry,Submit lab results,TRUE
+Deployment,Work,2025-07-08,high,Operations,Push update to production,FALSE
+Watch Movie,General,2025-07-10,low,Leisure,Relaxing Friday night,TRUE
+Assignment Review,Study,2025-07-12,medium,Peer Review,Review classmate's work,FALSE
+Math Homework,Study,2025-06-10,high,Math,None,false
+Project Report,Work,2025-06-12,medium,None,Finalize draft for manager,true
+Call plumber,General,2025-06-15,low,None,None,false
+Read Chapter 5,Study,2025-06-17,medium,Physics,None,true
+Client Meeting,Work,2025-06-20,high,None,Prepare presentation deck,false
+Doctor Appointment,General,2025-06-21,medium,None,None,false
+Flashcards,Study,2025-06-23,low,English,None,true
+Submit Invoice,Work,2025-06-25,high,None,Submit by end of day,true
+Gym,General,2025-06-27,high,None,None,true
+Group Study,Study,2025-06-28,low,Teamwork,None,false
+Code Review,Work,2025-06-29,medium,None,Review junior dev PR,true
+Clean House,General,2025-07-01,medium,None,None,false
+Practice Test,Study,2025-07-02,high,Exam Prep,None,true
+Team Sync,Work,2025-07-04,low,None,Weekly team catch-up,false
+Birthday Party,General,2025-07-06,high,None,None,false
+Lab Report,Study,2025-07-07,medium,Chemistry,None,true
+Deployment,Work,2025-07-08,high,None,Push update to production,false
+Watch Movie,General,2025-07-10,low,None,None,true
+Assignment Review,Study,2025-07-12,medium,Peer Review,None,false
+Buy groceries,General,2025-06-07,low,None,None,true
+Math Homework,Study,2025-06-10,high,Math,None,false
+Project Report,Work,2025-06-12,medium,None,Finalize draft for manager,true
+Call plumber,General,2025-06-15,low,None,None,false
+Read Chapter 5,Study,2025-06-17,medium,Physics,None,true
+Client Meeting,Work,2025-06-20,high,None,Prepare presentation deck,false
+Doctor Appointment,General,2025-06-21,medium,None,None,false
+Flashcards,Study,2025-06-23,low,English,None,true
+Gym,General,2025-06-27,high,None,None,true
+Group Study,Study,2025-06-28,low,Teamwork,None,false
+Code Review,Work,2025-06-29,medium,None,Review junior dev PR,true
+Clean House,General,2025-07-01,medium,None,None,false
+Practice Test,Study,2025-07-02,high,Exam Prep,None,true
+Team Sync,Work,2025-07-04,low,None,Weekly team catch-up,false
+Birthday Party,General,2025-07-06,high,None,None,false
+Lab Report,Study,2025-07-07,medium,Chemistry,None,true
+Deployment,Work,2025-07-08,high,None,Push update to production,false
+Watch Movie,General,2025-07-10,low,None,None,true
+Assignment Review,Study,2025-07-12,medium,Peer Review,None,false
+Buy groceries,General,2025-06-07,low,None,None,true
+Math Homework,Study,2025-06-10,high,Math,None,true
+Project Report,Work,2025-06-12,medium,None,Finalize draft for manager,true
+Call plumber,General,2025-06-15,low,None,None,false
+Read Chapter 5,Study,2025-06-17,medium,Physics,None,true
+Client Meeting,Work,2025-06-20,high,None,Prepare presentation deck,false
+Doctor Appointment,General,2025-06-21,medium,None,None,false
+Flashcards,Study,2025-06-23,low,English,None,true
+Submit Invoice,Work,2025-06-25,high,None,Submit by end of day,true
+Gym,General,2025-06-27,high,None,None,true
+Group Study,Study,2025-06-28,low,Teamwork,None,false
+Code Review,Work,2025-06-29,medium,None,Review junior dev PR,true
+Clean House,General,2025-07-01,medium,None,None,false
+Practice Test,Study,2025-07-02,high,Exam Prep,None,true
+Team Sync,Work,2025-07-04,low,None,Weekly team catch-up,false
+Birthday Party,General,2025-07-06,high,None,None,false
+Lab Report,Study,2025-07-07,medium,Chemistry,None,true
+Deployment,Work,2025-07-08,high,None,Push update to production,false
+Watch Movie,General,2025-07-10,low,None,None,true
+Assignment Review,Study,2025-07-12,medium,Peer Review,None,false
+Math Homework,Study,2025-06-10,high,Math,None,false
+Project Report,Work,2025-06-12,medium,None,Finalize draft for manager,true
+Call plumber,General,2025-06-15,low,None,None,false
+Read Chapter 5,Study,2025-06-17,medium,Physics,None,true
+Client Meeting,Work,2025-06-20,high,None,Prepare presentation deck,false
+Doctor Appointment,General,2025-06-21,medium,None,None,false
+Flashcards,Study,2025-06-23,low,English,None,true
+Submit Invoice,Work,2025-06-25,high,None,Submit by end of day,true
+Gym,General,2025-06-27,high,None,None,true
+Group Study,Study,2025-06-28,low,Teamwork,None,false
+Code Review,Work,2025-06-29,medium,None,Review junior dev PR,true
+Clean House,General,2025-07-01,medium,None,None,false
+Practice Test,Study,2025-07-02,high,Exam Prep,None,true
+Team Sync,Work,2025-07-04,low,None,Weekly team catch-up,false
+Birthday Party,General,2025-07-06,high,None,None,false
+Lab Report,Study,2025-07-07,medium,Chemistry,None,true
+Deployment,Work,2025-07-08,high,None,Push update to production,false
+Watch Movie,General,2025-07-10,low,None,None,true
+Assignment Review,Study,2025-07-12,medium,Peer Review,None,false
+Buy groceries,General,2025-06-07,low,None,None,true
+Math Homework,Study,2025-06-10,high,Math,None,false
+Project Report,Work,2025-06-12,medium,None,Finalize draft for manager,true
+Call plumber,General,2025-06-15,low,None,None,false
+Read Chapter 5,Study,2025-06-17,medium,Physics,None,true
+Client Meeting,Work,2025-06-20,high,None,Prepare presentation deck,false
+Doctor Appointment,General,2025-06-21,medium,None,None,false
+Flashcards,Study,2025-06-23,low,English,None,true
+Gym,General,2025-06-27,high,None,None,true
+Group Study,Study,2025-06-28,low,Teamwork,None,false
+Code Review,Work,2025-06-29,medium,None,Review junior dev PR,true
+Clean House,General,2025-07-01,medium,None,None,false
+Practice Test,Study,2025-07-02,high,Exam Prep,None,true
+Team Sync,Work,2025-07-04,low,None,Weekly team catch-up,false
+Lab Report,Study,2025-07-07,medium,Chemistry,None,true
+Deployment,Work,2025-07-08,high,None,Push update to production,false
+Watch Movie,General,2025-07-10,low,None,None,true
+Assignment Review,Study,2025-07-12,medium,Peer Review,None,false
