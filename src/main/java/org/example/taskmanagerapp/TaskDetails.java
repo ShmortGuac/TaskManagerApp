@@ -30,6 +30,13 @@ public class TaskDetails extends VBox {
         editTask.setPrefHeight(45);
         editTask.setGraphicTextGap(10);
 
+        editTask.setOnMouseEntered(e -> {
+            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #0066FF; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+        editTask.setOnMouseExited(e -> {
+            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+
         Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));
         deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(deleteTask, Priority.ALWAYS);
@@ -37,6 +44,13 @@ public class TaskDetails extends VBox {
         deleteTask.setPrefHeight(45);
         deleteTask.setGraphicTextGap(10);
         deleteTask.setOnAction(e-> deleteTask());
+
+        deleteTask.setOnMouseEntered(e -> {
+            deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #FF6666; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+        deleteTask.setOnMouseExited(e -> {
+            deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand;");
+        });
 
         HBox taskButtons = new HBox(10, editTask, deleteTask);
 
