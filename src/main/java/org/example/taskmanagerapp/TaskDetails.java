@@ -9,6 +9,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class TaskDetails extends VBox {
 
@@ -376,9 +377,38 @@ public class TaskDetails extends VBox {
     private static void deleteTask(){
         Task selectedTask = TaskBoardPage.taskListView.getSelectionModel().getSelectedItem();
         int selectedIdx = TaskBoardPage.taskListView.getSelectionModel().getSelectedIndex();
-        if(selectedIdx != -1){
-            TaskBoardPage.taskList.remove(selectedTask);
-            TaskBoardPage.taskListView.getItems().remove(selectedIdx);
+        if(selectedIdx != -1 && selectedTask != null){
+
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Delete Task");
+            confirmationAlert.setHeaderText("Are you sure you want to delete this task?");
+            confirmationAlert.setContentText("Task: " + selectedTask.getTaskName() + "\n" +
+                    "Category: " + selectedTask.getCategory() + "\n" +
+                    "This action cannot be undone.");
+
+            ButtonType deleteButton = new ButtonType("Delete", ButtonBar.ButtonData.OK_DONE);
+            ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+            confirmationAlert.getButtonTypes().setAll(deleteButton, cancelButton);
+
+            confirmationAlert.getDialogPane().lookupButton(deleteButton).setStyle(
+                    "-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold;"
+            );
+            confirmationAlert.getDialogPane().lookupButton(cancelButton).setStyle(
+                    "-fx-background-color: #424242; -fx-text-fill: white;"
+            );
+
+            Optional<ButtonType> result = confirmationAlert.showAndWait();
+
+            if (result.isPresent() && result.get() == deleteButton) {
+                TaskBoardPage.taskList.remove(selectedTask);
+                TaskBoardPage.taskListView.getItems().remove(selectedIdx);
+
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Task Deleted");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("Task \"" + selectedTask.getTaskName() + "\" has been deleted successfully.");
+                successAlert.showAndWait();
+            }
         }
     }
 
