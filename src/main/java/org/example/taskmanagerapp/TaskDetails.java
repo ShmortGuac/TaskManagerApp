@@ -24,7 +24,7 @@ public class TaskDetails extends VBox {
         VBox taskAttributes = new VBox();
         VBox.setVgrow(taskAttributes, Priority.ALWAYS);
 
-        Button editTask = new Button("Edit Task", new ImageView(Icon.EDIT.show()));
+        Button editTask = new Button("Edit Task", Icon.EDIT.show());
         editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(editTask, Priority.ALWAYS);
         editTask.setMaxWidth(Double.MAX_VALUE);
@@ -38,7 +38,7 @@ public class TaskDetails extends VBox {
             editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand;");
         });
 
-        Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));
+        Button deleteTask = new Button("Delete Task", Icon.DELETE.show());
         deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(deleteTask, Priority.ALWAYS);
         deleteTask.setMaxWidth(Double.MAX_VALUE);
@@ -127,7 +127,7 @@ public class TaskDetails extends VBox {
         taskAttributes.setAlignment(Pos.CENTER_LEFT);
         taskAttributes.setMaxHeight(Double.MAX_VALUE);
 
-        Button editTask = new Button("Edit Task", new ImageView(Icon.EDIT.show()));
+        Button editTask = new Button("Edit Task", Icon.EDIT.show());
         editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(editTask, Priority.ALWAYS);
         editTask.setMaxWidth(Double.MAX_VALUE);
@@ -144,7 +144,7 @@ public class TaskDetails extends VBox {
             enableEditMode(taskName, categoryField, dueDateField, priorityField, task);
         });
 
-        Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));
+        Button deleteTask = new Button("Delete Task", Icon.DELETE.show());
         deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(deleteTask, Priority.ALWAYS);
         deleteTask.setMaxWidth(Double.MAX_VALUE);
@@ -245,7 +245,7 @@ public class TaskDetails extends VBox {
         taskAttributes.setAlignment(Pos.CENTER_LEFT);
         taskAttributes.setMaxHeight(Double.MAX_VALUE);
 
-        Button editTask = new Button("Edit Task", new ImageView(Icon.EDIT.show()));
+        Button editTask = new Button("Edit Task", Icon.EDIT.show());
         editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(editTask, Priority.ALWAYS);
         editTask.setMaxWidth(Double.MAX_VALUE);
@@ -262,7 +262,7 @@ public class TaskDetails extends VBox {
             enableEditModeStudy(taskName, categoryField, subjectField, dueDateField, priorityField, task);
         });
 
-        Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));
+        Button deleteTask = new Button("Delete Task", Icon.DELETE.show());
         deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(deleteTask, Priority.ALWAYS);
         deleteTask.setMaxWidth(Double.MAX_VALUE);
@@ -362,7 +362,7 @@ public class TaskDetails extends VBox {
         taskAttributes.setAlignment(Pos.CENTER_LEFT);
         taskAttributes.setMaxHeight(Double.MAX_VALUE);
 
-        Button editTask = new Button("Edit Task", new ImageView(Icon.EDIT.show()));
+        Button editTask = new Button("Edit Task", Icon.EDIT.show());
         editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(editTask, Priority.ALWAYS);
         editTask.setMaxWidth(Double.MAX_VALUE);
@@ -379,7 +379,7 @@ public class TaskDetails extends VBox {
             enableEditModeWork(taskName, categoryField, descriptionArea, dueDateField, priorityField, task);
         });
 
-        Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));
+        Button deleteTask = new Button("Delete Task", Icon.DELETE.show());
         deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(deleteTask, Priority.ALWAYS);
         deleteTask.setMaxWidth(Double.MAX_VALUE);

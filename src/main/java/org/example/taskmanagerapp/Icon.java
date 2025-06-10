@@ -20,7 +20,7 @@ public enum Icon {
 
     }
 
-    public Image show(){
-        return image;
+    public ImageView show(){
+        return imageView;
     }
 }

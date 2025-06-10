@@ -109,7 +109,7 @@ public class AddTaskPanel extends Stage {
         VBox inputSection = new VBox(15, taskNameInput, categoryInput, dueDateInput, priorityInput, additionalFields);
         inputSection.setPadding(new Insets(10));
 
-        Button addButton = new Button("Add Task", new ImageView(Icon.ADD.show()));
+        Button addButton = new Button("Add Task", Icon.ADD.show());
         addButton.setPadding(new Insets(10, 15, 10, 15));
         addButton.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-cursor: hand");
         addButton.setOnMouseEntered(e -> {
