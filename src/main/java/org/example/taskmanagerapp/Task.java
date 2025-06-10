@@ -86,7 +86,7 @@ public abstract class Task {
         if(isCompleted()) {
             return "✔ " + taskName;
         }else {
-            return taskName;
+            return "     " + taskName;
         }
     }
 

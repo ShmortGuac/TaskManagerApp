@@ -555,10 +555,10 @@ public class TaskDetails extends VBox {
             confirmationAlert.getButtonTypes().setAll(deleteButton, cancelButton);
 
             confirmationAlert.getDialogPane().lookupButton(deleteButton).setStyle(
-                    "-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold;"
+                    "-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand"
             );
             confirmationAlert.getDialogPane().lookupButton(cancelButton).setStyle(
-                    "-fx-background-color: #424242; -fx-text-fill: white;"
+                    "-fx-background-color: #424242; -fx-text-fill: white; -fx-cursor: hand"
             );
 
             Optional<ButtonType> result = confirmationAlert.showAndWait();
