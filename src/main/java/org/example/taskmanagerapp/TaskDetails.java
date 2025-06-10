@@ -13,6 +13,14 @@ import java.util.Optional;
 
 public class TaskDetails extends VBox {
 
+    private static TextField taskName;
+    private static TextField categoryField;
+    private static DatePicker dueDateField;
+    private static ComboBox<String> priorityField;
+    private static CheckBox statusBox;
+    private static TextField subjectField;
+    private static TextArea descriptionArea;
+
     public TaskDetails(){
         super();
 
@@ -65,102 +73,20 @@ public class TaskDetails extends VBox {
     public TaskDetails(GeneralTask task){
         super();
 
-        TextField taskName = new TextField("Task Name");
-        taskName.setStyle("-fx-font-size: 20; -fx-text-fill: black;");
-        taskName.setPrefHeight(30);
-        taskName.setAlignment(Pos.CENTER);
-        taskName.setText(task.getTaskName());
-
-        HBox taskNameBox = new HBox(taskName, new ImageView(Icon.EDIT.show()));
-
-        Label categoryLabel = new Label("Category");
-        categoryLabel.setPrefWidth(140);
-        categoryLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        TextField categoryField = new TextField();
-        categoryField.setPrefHeight(35);
-        categoryField.setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(categoryField, Priority.ALWAYS);
-        categoryField.setEditable(false);
-        categoryField.setText(task.getCategory());
-        categoryField.setStyle("-fx-background-radius: 0");
-        HBox category = new HBox(10, categoryLabel, categoryField);
-        category.setAlignment(Pos.CENTER_LEFT);
-
-        Label dueDateLabel = new Label("Due Date");
-        dueDateLabel.setPrefWidth(140);
-        dueDateLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        DatePicker dueDateField = new DatePicker();
-        dueDateField.setPrefHeight(35);
-        dueDateField.setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(dueDateField, Priority.ALWAYS);
-        dueDateField.setStyle("-fx-background-radius: 0");
-        dueDateField.setValue(task.getDueDate());
-        HBox dueDate = new HBox(10, dueDateLabel, dueDateField);
-        dueDate.setAlignment(Pos.CENTER_LEFT);
-
-        Label priorityLabel = new Label("Priority");
-        priorityLabel.setPrefWidth(140);
-        priorityLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        ComboBox<String> priorityField = new ComboBox<>();
-        priorityField.getItems().addAll("LOW", "MEDIUM", "HIGH");
-        priorityField.setPrefHeight(35);
-        priorityField.setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(priorityField, Priority.ALWAYS);
-        priorityField.setStyle("-fx-background-radius: 0");
-        priorityField.setValue(task.getPriority());
-        HBox priority = new HBox(10, priorityLabel, priorityField);
-        priority.setAlignment(Pos.CENTER_LEFT);
-
-        Label statusLabel = new Label("Completed");
-        statusLabel.setPrefWidth(140);
-        statusLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        CheckBox statusBox = new CheckBox();
-        statusBox.setScaleX(1.2);
-        statusBox.setScaleY(1.2);
-        statusBox.setSelected(task.isCompleted());
-        statusBox.setOnAction(e-> {
-            task.setCompleted(!task.isCompleted());
-            TaskBoardPage.taskListView.getSelectionModel().clearSelection();
-        });
-        HBox status = new HBox(10, statusLabel,statusBox);
-        status.setAlignment(Pos.CENTER_LEFT);
+        HBox taskNameBox = createTaskNameInput(task);
+        HBox category = createCategoryField(task);
+        HBox dueDate = createDueDateField(task);
+        HBox priority = createPriorityField(task);
+        HBox status = createStatusBox(task);
 
         VBox taskAttributes = new VBox(20, category, dueDate, priority, status);
         VBox.setVgrow(taskAttributes, Priority.ALWAYS);
         taskAttributes.setAlignment(Pos.CENTER_LEFT);
         taskAttributes.setMaxHeight(Double.MAX_VALUE);
 
-        Button editTask = new Button("Edit Task", new ImageView(Icon.EDIT.show()));
-        editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
-        HBox.setHgrow(editTask, Priority.ALWAYS);
-        editTask.setMaxWidth(Double.MAX_VALUE);
-        editTask.setPrefHeight(45);
-        editTask.setGraphicTextGap(10);
+        Button editTask = createEditButton(task);
 
-        editTask.setOnMouseEntered(e -> {
-            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #0066FF; -fx-background-radius:10; -fx-cursor: hand;");
-        });
-        editTask.setOnMouseExited(e -> {
-            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand;");
-        });
-        editTask.setOnAction(e-> {
-            enableEditMode(taskName, categoryField, dueDateField, priorityField, task);
-        });
-
-        Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));
-        deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand");
-        HBox.setHgrow(deleteTask, Priority.ALWAYS);
-        deleteTask.setMaxWidth(Double.MAX_VALUE);
-        deleteTask.setPrefHeight(45);
-        deleteTask.setGraphicTextGap(10);
-
-        deleteTask.setOnMouseEntered(e -> {
-            deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #FF6666; -fx-background-radius:10; -fx-cursor: hand;");
-        });
-        deleteTask.setOnMouseExited(e -> {
-            deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand;");
-        });
-        deleteTask.setOnAction(e-> deleteTask());
+        Button deleteTask = createDeleteButton();
 
         HBox taskButtons = new HBox(10, editTask, deleteTask);
 
@@ -173,116 +99,25 @@ public class TaskDetails extends VBox {
     public TaskDetails(StudyTask task){
         super();
 
-        TextField taskName = new TextField("Task Name");
-        taskName.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-background-color: black; -fx-border-color: white");
-        taskName.setPrefHeight(30);
-        taskName.setAlignment(Pos.CENTER);
-        taskName.setText(task.getTaskName());
-
-        Label categoryLabel = new Label("Category");
-        categoryLabel.setPrefWidth(140);
-        categoryLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        TextField categoryField = new TextField();
-        categoryField.setPrefHeight(35);
-        categoryField.setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(categoryField, Priority.ALWAYS);
-        categoryField.setEditable(false);
-        categoryField.setText(task.getCategory());
-        categoryField.setStyle("-fx-background-radius: 0");
-        HBox category = new HBox(10, categoryLabel, categoryField);
-        category.setAlignment(Pos.CENTER_LEFT);
-
-        Label subjectLabel = new Label("Subject");
-        subjectLabel.setPrefWidth(140);
-        subjectLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        TextField subjectField = new TextField();
-        subjectField.setPrefHeight(35);
-        subjectField.setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(subjectField, Priority.ALWAYS);
-        subjectField.setText(task.getSubject());
-        subjectField.setStyle("-fx-background-radius: 0");
-        HBox subject = new HBox(10, subjectLabel, subjectField);
-        subject.setAlignment(Pos.CENTER_LEFT);
-
-        Label dueDateLabel = new Label("Due Date");
-        dueDateLabel.setPrefWidth(140);
-        dueDateLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        DatePicker dueDateField = new DatePicker();
-        dueDateField.setPrefHeight(35);
-        dueDateField.setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(dueDateField, Priority.ALWAYS);
-        dueDateField.setStyle("-fx-background-radius: 0");
-        dueDateField.setValue(task.getDueDate());
-        HBox dueDate = new HBox(10, dueDateLabel, dueDateField);
-        dueDate.setAlignment(Pos.CENTER_LEFT);
-
-        Label priorityLabel = new Label("Priority");
-        priorityLabel.setPrefWidth(140);
-        priorityLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        ComboBox<String> priorityField = new ComboBox<>();
-        priorityField.getItems().addAll("LOW", "MEDIUM", "HIGH");
-        priorityField.setPrefHeight(35);
-        priorityField.setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(priorityField, Priority.ALWAYS);
-        priorityField.setStyle("-fx-background-radius: 0");
-        priorityField.setValue(task.getPriority());
-        HBox priority = new HBox(10, priorityLabel, priorityField);
-        priority.setAlignment(Pos.CENTER_LEFT);
-
-        Label statusLabel = new Label("Completed");
-        statusLabel.setPrefWidth(140);
-        statusLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        CheckBox statusBox = new CheckBox();
-        statusBox.setScaleX(1.2);
-        statusBox.setScaleY(1.2);
-        statusBox.setSelected(task.isCompleted());
-        statusBox.setOnAction(e-> {
-            task.setCompleted(!task.isCompleted());
-            TaskBoardPage.taskListView.getSelectionModel().clearSelection();
-        });
-        HBox status = new HBox(10, statusLabel,statusBox);
-        status.setAlignment(Pos.CENTER_LEFT);
+        HBox taskNameBox = createTaskNameInput(task);
+        HBox category = createCategoryField(task);
+        HBox subject = createSubjectField(task);
+        HBox dueDate = createDueDateField(task);
+        HBox priority = createPriorityField(task);
+        HBox status = createStatusBox(task);
 
         VBox taskAttributes = new VBox(20, category, subject, dueDate, priority, status);
         VBox.setVgrow(taskAttributes, Priority.ALWAYS);
         taskAttributes.setAlignment(Pos.CENTER_LEFT);
         taskAttributes.setMaxHeight(Double.MAX_VALUE);
 
-        Button editTask = new Button("Edit Task", new ImageView(Icon.DELETE.show()));
-        editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
-        HBox.setHgrow(editTask, Priority.ALWAYS);
-        editTask.setMaxWidth(Double.MAX_VALUE);
-        editTask.setPrefHeight(45);
-        editTask.setGraphicTextGap(10);
+        Button editTask = createEditButton(task);
 
-        editTask.setOnMouseEntered(e -> {
-            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #0066FF; -fx-background-radius:10; -fx-cursor: hand;");
-        });
-        editTask.setOnMouseExited(e -> {
-            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand;");
-        });
-        editTask.setOnAction(e->{
-            enableEditModeStudy(taskName, categoryField, subjectField, dueDateField, priorityField, task);
-        });
-
-        Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));
-        deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand");
-        HBox.setHgrow(deleteTask, Priority.ALWAYS);
-        deleteTask.setMaxWidth(Double.MAX_VALUE);
-        deleteTask.setPrefHeight(45);
-        deleteTask.setGraphicTextGap(10);
-
-        deleteTask.setOnMouseEntered(e -> {
-            deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #FF6666; -fx-background-radius:10; -fx-cursor: hand;");
-        });
-        deleteTask.setOnMouseExited(e -> {
-            deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand;");
-        });
-        deleteTask.setOnAction(e-> deleteTask());
+        Button deleteTask = createDeleteButton();
 
         HBox taskButtons = new HBox(10, editTask, deleteTask);
 
-        this.getChildren().addAll(taskName, taskAttributes, taskButtons);
+        this.getChildren().addAll(taskNameBox, taskAttributes, taskButtons);
         this.setPadding(new Insets(10));
         VBox.setVgrow(this, Priority.ALWAYS);
         this.setStyle("-fx-border-color: white; -fx-border-width: 3;");
@@ -291,121 +126,32 @@ public class TaskDetails extends VBox {
     public TaskDetails(WorkTask task){
         super();
 
-        TextField taskName = new TextField("Task Name");
-        taskName.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-background-color: black; -fx-border-color: white");
-        taskName.setPrefHeight(30);
-        taskName.setAlignment(Pos.CENTER);
-        taskName.setText(task.getTaskName());
+        HBox taskNameBox = createTaskNameInput(task);
+        HBox category = createCategoryField(task);
+        HBox description = createDescriptionArea(task);
+        HBox dueDate = createDueDateField(task);
+        HBox priority = createPriorityField(task);
+        HBox status = createStatusBox(task);
 
-        Label categoryLabel = new Label("Category");
-        categoryLabel.setPrefWidth(140);
-        categoryLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        TextField categoryField = new TextField();
-        categoryField.setPrefHeight(35);
-        categoryField.setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(categoryField, Priority.ALWAYS);
-        categoryField.setEditable(false);
-        categoryField.setText(task.getCategory());
-        categoryField.setStyle("-fx-background-radius: 0");
-        HBox category = new HBox(10, categoryLabel, categoryField);
-        category.setAlignment(Pos.CENTER_LEFT);
-
-        Label descriptionLabel = new Label("Description");
-        descriptionLabel.setMinWidth(140);
-        descriptionLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        TextArea descriptionArea = new TextArea();
-        descriptionArea.setPrefHeight(80);
-        descriptionArea.setText(task.getDescription());
-        descriptionArea.setWrapText(true);
-        descriptionArea.setStyle("-fx-background-radius: 0");
-        HBox description = new HBox(10, descriptionLabel, descriptionArea);
-        description.setAlignment(Pos.CENTER_LEFT);
-
-        Label dueDateLabel = new Label("Due Date");
-        dueDateLabel.setPrefWidth(140);
-        dueDateLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        DatePicker dueDateField = new DatePicker();
-        dueDateField.setPrefHeight(35);
-        dueDateField.setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(dueDateField, Priority.ALWAYS);
-        dueDateField.setStyle("-fx-background-radius: 0");
-        dueDateField.setValue(task.getDueDate());
-        HBox dueDate = new HBox(10, dueDateLabel, dueDateField);
-        dueDate.setAlignment(Pos.CENTER_LEFT);
-
-        Label priorityLabel = new Label("Priority");
-        priorityLabel.setPrefWidth(140);
-        priorityLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        ComboBox<String> priorityField = new ComboBox<>();
-        priorityField.getItems().addAll("LOW", "MEDIUM", "HIGH");
-        priorityField.setPrefHeight(35);
-        priorityField.setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(priorityField, Priority.ALWAYS);
-        priorityField.setStyle("-fx-background-radius: 0");
-        priorityField.setValue(task.getPriority());
-        HBox priority = new HBox(10, priorityLabel, priorityField);
-        priority.setAlignment(Pos.CENTER_LEFT);
-
-        Label statusLabel = new Label("Completed");
-        statusLabel.setPrefWidth(140);
-        statusLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-        CheckBox statusBox = new CheckBox();
-        statusBox.setScaleX(1.2);
-        statusBox.setScaleY(1.2);
-        statusBox.setSelected(task.isCompleted());
-        statusBox.setOnAction(e-> {
-            task.setCompleted(!task.isCompleted());
-            TaskBoardPage.taskListView.getSelectionModel().clearSelection();
-        });
-        HBox status = new HBox(10, statusLabel,statusBox);
-        status.setAlignment(Pos.CENTER_LEFT);
 
         VBox taskAttributes = new VBox(20, category, description, dueDate, priority, status);
         VBox.setVgrow(taskAttributes, Priority.ALWAYS);
         taskAttributes.setAlignment(Pos.CENTER_LEFT);
         taskAttributes.setMaxHeight(Double.MAX_VALUE);
 
-        Button editTask = new Button("Edit Task", new ImageView(Icon.EDIT.show()));
-        editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
-        HBox.setHgrow(editTask, Priority.ALWAYS);
-        editTask.setMaxWidth(Double.MAX_VALUE);
-        editTask.setPrefHeight(45);
-        editTask.setGraphicTextGap(10);
+        Button editTask = createEditButton(task);
 
-        editTask.setOnMouseEntered(e -> {
-            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #0066FF; -fx-background-radius:10; -fx-cursor: hand;");
-        });
-        editTask.setOnMouseExited(e -> {
-            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand;");
-        });
-        editTask.setOnAction(e->{
-            enableEditModeWork(taskName, categoryField, descriptionArea, dueDateField, priorityField, task);
-        });
-
-        Button deleteTask = new Button("Delete Task", new ImageView(Icon.EDIT.show()));
-        deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand");
-        HBox.setHgrow(deleteTask, Priority.ALWAYS);
-        deleteTask.setMaxWidth(Double.MAX_VALUE);
-        deleteTask.setPrefHeight(45);
-        deleteTask.setGraphicTextGap(10);
-
-        deleteTask.setOnMouseEntered(e -> {
-            deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #FF6666; -fx-background-radius:10; -fx-cursor: hand;");
-        });
-        deleteTask.setOnMouseExited(e -> {
-            deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand;");
-        });
-        deleteTask.setOnAction(e-> deleteTask());
+        Button deleteTask = createDeleteButton();
 
         HBox taskButtons = new HBox(10, editTask, deleteTask);
 
-        this.getChildren().addAll(taskName, taskAttributes, taskButtons);
+        this.getChildren().addAll(taskNameBox, taskAttributes, taskButtons);
         this.setPadding(new Insets(10));
         VBox.setVgrow(this, Priority.ALWAYS);
         this.setStyle("-fx-border-color: white; -fx-border-width: 3;");
     }
 
-    private void enableEditMode(TextField taskName, TextField categoryField, DatePicker dueDateField, ComboBox<String> priorityField, GeneralTask task) {
+    private static void enableEditMode(TextField taskName, TextField categoryField, DatePicker dueDateField, ComboBox<String> priorityField, GeneralTask task) {
         boolean isChanged = false;
 
         if (!taskName.getText().equals(task.getTaskName())) {
@@ -425,7 +171,7 @@ public class TaskDetails extends VBox {
         }
     }
 
-    private void enableEditModeStudy(TextField taskName, TextField categoryField, TextField subjectField, DatePicker dueDateField, ComboBox<String> priorityField, StudyTask task) {
+    private static void enableEditModeStudy(TextField taskName, TextField categoryField, TextField subjectField, DatePicker dueDateField, ComboBox<String> priorityField, StudyTask task) {
         boolean isChanged = false;
 
         if (!taskName.getText().equals(task.getTaskName())) {
@@ -449,7 +195,7 @@ public class TaskDetails extends VBox {
         }
     }
 
-    private void enableEditModeWork(TextField taskName, TextField categoryField, TextArea descriptionArea, DatePicker dueDateField, ComboBox<String> priorityField, WorkTask task) {
+    private static void enableEditModeWork(TextField taskName, TextField categoryField, TextArea descriptionArea, DatePicker dueDateField, ComboBox<String> priorityField, WorkTask task) {
         boolean isChanged = false;
 
         if (!taskName.getText().equals(task.getTaskName())) {
@@ -473,7 +219,7 @@ public class TaskDetails extends VBox {
         }
     }
 
-    private void showSaveDialog(TextField taskName, TextField categoryField, DatePicker dueDateField, ComboBox<String> priorityField, GeneralTask task) {
+    private static void showSaveDialog(TextField taskName, TextField categoryField, DatePicker dueDateField, ComboBox<String> priorityField, GeneralTask task) {
         Alert confirmDialog = new Alert(Alert.AlertType.CONFIRMATION);
         confirmDialog.setTitle("Save Changes");
         confirmDialog.setHeaderText("Do you want to save your changes?");
@@ -495,7 +241,7 @@ public class TaskDetails extends VBox {
         TaskBoardPage.taskListView.getSelectionModel().clearSelection();
     }
 
-    private void showSaveDialogStudy(TextField taskName, TextField categoryField, TextField subjectField, DatePicker dueDateField, ComboBox<String> priorityField, StudyTask task) {
+    private static void showSaveDialogStudy(TextField taskName, TextField categoryField, TextField subjectField, DatePicker dueDateField, ComboBox<String> priorityField, StudyTask task) {
         Alert confirmDialog = new Alert(Alert.AlertType.CONFIRMATION);
         confirmDialog.setTitle("Save Changes");
         confirmDialog.setHeaderText("Do you want to save your changes?");
@@ -518,7 +264,7 @@ public class TaskDetails extends VBox {
         TaskBoardPage.taskListView.getSelectionModel().clearSelection();
     }
 
-    private void showSaveDialogWork(TextField taskName, TextField categoryField, TextArea descriptionArea, DatePicker dueDateField, ComboBox<String> priorityField, WorkTask task) {
+    private static void showSaveDialogWork(TextField taskName, TextField categoryField, TextArea descriptionArea, DatePicker dueDateField, ComboBox<String> priorityField, WorkTask task) {
         Alert confirmDialog = new Alert(Alert.AlertType.CONFIRMATION);
         confirmDialog.setTitle("Save Changes");
         confirmDialog.setHeaderText("Do you want to save your changes?");
@@ -540,6 +286,188 @@ public class TaskDetails extends VBox {
         priorityField.setDisable(true);
         TaskBoardPage.taskListView.getSelectionModel().clearSelection();
     }
+
+    private static HBox createTaskNameInput(Task task){
+        taskName = new TextField("Task Name");
+        taskName.setStyle("-fx-font-size: 20; -fx-text-fill: black;");
+        taskName.setPrefHeight(30);
+        taskName.setAlignment(Pos.CENTER);
+        taskName.setText(task.getTaskName());
+        return  new HBox(taskName, new ImageView(Icon.EDIT.show()));
+    }
+
+    private static HBox createCategoryField(Task task){
+        Label categoryLabel = new Label("Category");
+        categoryLabel.setPrefWidth(140);
+        categoryLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+        categoryField = new TextField();
+        categoryField.setPrefHeight(35);
+        categoryField.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(categoryField, Priority.ALWAYS);
+        categoryField.setEditable(false);
+        categoryField.setText(task.getCategory());
+        categoryField.setStyle("-fx-background-radius: 0");
+        HBox category = new HBox(10, categoryLabel, categoryField);
+        category.setAlignment(Pos.CENTER_LEFT);
+        return category;
+    }
+
+    private static HBox createDueDateField(Task task){
+        Label dueDateLabel = new Label("Due Date");
+        dueDateLabel.setPrefWidth(140);
+        dueDateLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+        dueDateField = new DatePicker();
+        dueDateField.setPrefHeight(35);
+        dueDateField.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(dueDateField, Priority.ALWAYS);
+        dueDateField.setStyle("-fx-background-radius: 0");
+        dueDateField.setValue(task.getDueDate());
+        HBox dueDate = new HBox(10, dueDateLabel, dueDateField);
+        dueDate.setAlignment(Pos.CENTER_LEFT);
+        return dueDate;
+    }
+
+    private static HBox createPriorityField(Task task){
+        Label priorityLabel = new Label("Priority");
+        priorityLabel.setPrefWidth(140);
+        priorityLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+        priorityField = new ComboBox<>();
+        priorityField.getItems().addAll("LOW", "MEDIUM", "HIGH");
+        priorityField.setPrefHeight(35);
+        priorityField.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(priorityField, Priority.ALWAYS);
+        priorityField.setStyle("-fx-background-radius: 0");
+        priorityField.setValue(task.getPriority());
+        HBox priority = new HBox(10, priorityLabel, priorityField);
+        priority.setAlignment(Pos.CENTER_LEFT);
+        return priority;
+    }
+
+    private static HBox createStatusBox(Task task){
+        Label statusLabel = new Label("Completed");
+        statusLabel.setPrefWidth(140);
+        statusLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+        statusBox = new CheckBox();
+        statusBox.setScaleX(1.2);
+        statusBox.setScaleY(1.2);
+        statusBox.setSelected(task.isCompleted());
+        statusBox.setOnAction(e-> {
+            task.setCompleted(!task.isCompleted());
+            TaskBoardPage.taskListView.getSelectionModel().clearSelection();
+        });
+        HBox status = new HBox(10, statusLabel,statusBox);
+        status.setAlignment(Pos.CENTER_LEFT);
+        return status;
+    }
+
+    private static HBox createSubjectField(StudyTask task){
+        Label subjectLabel = new Label("Subject");
+        subjectLabel.setPrefWidth(140);
+        subjectLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+        subjectField = new TextField();
+        subjectField.setPrefHeight(35);
+        subjectField.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(subjectField, Priority.ALWAYS);
+        subjectField.setText(task.getSubject());
+        subjectField.setStyle("-fx-background-radius: 0");
+        HBox subject = new HBox(10, subjectLabel, subjectField);
+        subject.setAlignment(Pos.CENTER_LEFT);
+        return subject;
+    }
+
+    private static HBox createDescriptionArea(WorkTask task){
+        Label descriptionLabel = new Label("Description");
+        descriptionLabel.setMinWidth(140);
+        descriptionLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+        descriptionArea = new TextArea();
+        descriptionArea.setPrefHeight(80);
+        descriptionArea.setText(task.getDescription());
+        descriptionArea.setWrapText(true);
+        descriptionArea.setStyle("-fx-background-radius: 0");
+        HBox description = new HBox(10, descriptionLabel, descriptionArea);
+        description.setAlignment(Pos.CENTER_LEFT);
+        return description;
+    }
+
+    private static Button createEditButton(GeneralTask task){
+        Button editTask = new Button("Edit Task", new ImageView(Icon.EDIT.show()));
+        editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
+        HBox.setHgrow(editTask, Priority.ALWAYS);
+        editTask.setMaxWidth(Double.MAX_VALUE);
+        editTask.setPrefHeight(45);
+        editTask.setGraphicTextGap(10);
+
+        editTask.setOnMouseEntered(e -> {
+            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #0066FF; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+        editTask.setOnMouseExited(e -> {
+            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+        editTask.setOnAction(e-> {
+            enableEditMode(taskName, categoryField, dueDateField, priorityField, task);
+        });
+        return editTask;
+    }
+
+
+    private static Button createDeleteButton(){
+        Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));
+        deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand");
+        HBox.setHgrow(deleteTask, Priority.ALWAYS);
+        deleteTask.setMaxWidth(Double.MAX_VALUE);
+        deleteTask.setPrefHeight(45);
+        deleteTask.setGraphicTextGap(10);
+
+        deleteTask.setOnMouseEntered(e -> {
+            deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #FF6666; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+        deleteTask.setOnMouseExited(e -> {
+            deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+        deleteTask.setOnAction(e-> deleteTask());
+        return deleteTask;
+    }
+
+    private static Button createEditButton(StudyTask task){
+        Button editTask = new Button("Edit Task", new ImageView(Icon.EDIT.show()));
+        editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
+        HBox.setHgrow(editTask, Priority.ALWAYS);
+        editTask.setMaxWidth(Double.MAX_VALUE);
+        editTask.setPrefHeight(45);
+        editTask.setGraphicTextGap(10);
+
+        editTask.setOnMouseEntered(e -> {
+            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #0066FF; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+        editTask.setOnMouseExited(e -> {
+            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+        editTask.setOnAction(e-> {
+            enableEditModeStudy(taskName, categoryField, subjectField, dueDateField, priorityField, task);
+        });
+        return editTask;
+    }
+
+    private static Button createEditButton(WorkTask task){
+        Button editTask = new Button("Edit Task", new ImageView(Icon.EDIT.show()));
+        editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
+        HBox.setHgrow(editTask, Priority.ALWAYS);
+        editTask.setMaxWidth(Double.MAX_VALUE);
+        editTask.setPrefHeight(45);
+        editTask.setGraphicTextGap(10);
+
+        editTask.setOnMouseEntered(e -> {
+            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: #0066FF; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+        editTask.setOnMouseExited(e -> {
+            editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand;");
+        });
+        editTask.setOnAction(e-> {
+            enableEditModeWork(taskName, categoryField, descriptionArea, dueDateField, priorityField, task);
+        });
+        return editTask;
+    }
+
 
     private static void deleteTask(){
         Task selectedTask = TaskBoardPage.taskListView.getSelectionModel().getSelectedItem();
