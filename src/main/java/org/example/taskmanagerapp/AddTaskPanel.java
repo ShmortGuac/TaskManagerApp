@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -16,13 +17,13 @@ public class AddTaskPanel extends Stage {
     public AddTaskPanel(){
         super();
         this.setTitle("Add Task");
-        this.getIcons().add(Icon.ADD.show());
+        Image icon = new Image("file:src/main/images/nexus_logo_whitebg.png");
+        this.getIcons().add(icon);
 
         Label addTaskLabel = new Label("Add New Task");
-        addTaskLabel.setStyle("-fx-font-size: 26; -fx-text-fill: white");
+        addTaskLabel.setStyle("-fx-font-size: 23; -fx-text-fill: white");
 
         VBox titleSection = new VBox(addTaskLabel);
-
 
         Label taskNameLabel = new Label("Task Name");
         taskNameLabel.setStyle("-fx-font-size: 18; -fx-text-fill: white; -fx-underline: true");
