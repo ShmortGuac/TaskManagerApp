@@ -37,6 +37,14 @@ public class TaskBoardPage extends VBox {
         backButton = new HBox(5, new ImageView(Icon.BACK.show()), backLabel);
         backButton.setAlignment(Pos.CENTER_LEFT);
         backButton.setStyle("-fx-cursor: hand");
+
+        backButton.setOnMouseEntered(e -> {
+            backButton.setStyle("-fx-cursor: hand; -fx-scale-x: 1.1; -fx-scale-y: 1.1;");
+        });
+        backButton.setOnMouseExited(e -> {
+            backButton.setStyle("-fx-cursor: hand; -fx-scale-x: 1.0; -fx-scale-y: 1.0;");
+        });
+
         backButton.setOnMouseClicked(e->{
             app.showHomePage();
         });
@@ -63,7 +71,7 @@ public class TaskBoardPage extends VBox {
         // Task List Section--------------------------------
         Label taskBoardLabel = new Label("Task Board");
         taskBoardLabel.setMaxWidth(Double.MAX_VALUE);
-        taskBoardLabel.setStyle("-fx-text-fill: white;");
+        taskBoardLabel.setStyle("-fx-text-fill: white; -fx-font-size: 18px");
 
 
         ComboBox<String> taskFilter = new ComboBox<String>();
@@ -114,7 +122,7 @@ public class TaskBoardPage extends VBox {
 
         Label taskDetailsLabel = new Label("Task Details");
         taskDetailsLabel.setAlignment(Pos.CENTER_LEFT);
-        taskDetailsLabel.setStyle("-fx-text-fill: white");
+        taskDetailsLabel.setStyle("-fx-text-fill: white; -fx-font-size: 18px");
         taskDetailsLabel.setPrefHeight(30);
 
         VBox taskDetailsBox = new VBox(new TaskDetails());
@@ -149,6 +157,14 @@ public class TaskBoardPage extends VBox {
         addTask.setGraphicTextGap(10);
         addTask.setPadding(new Insets(10, 15, 10, 10));
         addTask.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 16; -fx-cursor: hand");
+
+        addTask.setOnMouseEntered(e -> {
+            addTask.setStyle("-fx-background-color: #00AA00; -fx-text-fill: white; -fx-font-size: 16; -fx-cursor: hand; ");
+        });
+        addTask.setOnMouseExited(e -> {
+            addTask.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 16; -fx-cursor: hand;");
+        });
+
         addTask.setOnAction(e->{
             new AddTaskPanel();
         });
@@ -162,6 +178,15 @@ public class TaskBoardPage extends VBox {
         saveBoard.setGraphicTextGap(10);
         saveBoard.setPadding(new Insets(10, 15, 10, 10));
         saveBoard.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 16; -fx-cursor: hand");
+
+        // Add hover effects for Save Board button
+        saveBoard.setOnMouseEntered(e -> {
+            saveBoard.setStyle("-fx-background-color: #00AA00; -fx-text-fill: white; -fx-font-size: 16; -fx-cursor: hand;");
+        });
+        saveBoard.setOnMouseExited(e -> {
+            saveBoard.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 16; -fx-cursor: hand;");
+        });
+
         saveBoard.setOnAction(e->{
             FileChooser fileChooser = new FileChooser();
             fileChooser.setInitialDirectory(new File("src/main/savedBoards"));
