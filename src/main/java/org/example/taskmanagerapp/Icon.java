@@ -9,7 +9,8 @@ public enum Icon {
     FILTER("file:src/main/images/filter.png"),
     SAVE("file:src/main/images/Save.png"),
     DELETE("file:src/main/images/Trash.png"),
-    BACK("file:src/main/images/arrow_back.png");
+    BACK("file:src/main/images/arrow_back.png"),
+    CONFIRM("file:src/main/images/Check.png");
 
     private Image image;
 

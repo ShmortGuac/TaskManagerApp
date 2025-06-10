@@ -33,7 +33,7 @@ public class TaskDetails extends VBox {
         VBox taskAttributes = new VBox();
         VBox.setVgrow(taskAttributes, Priority.ALWAYS);
 
-        Button editTask = new Button("Confirm Changes", new ImageView(Icon.EDIT.show()));
+        Button editTask = new Button("Confirm Changes", new ImageView(Icon.CONFIRM.show()));
         editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(editTask, Priority.ALWAYS);
         editTask.setMaxWidth(Double.MAX_VALUE);
@@ -478,7 +478,7 @@ public class TaskDetails extends VBox {
     }
 
     private static Button createEditButton(WorkTask task){
-        Button editTask = new Button("Edit Task", new ImageView(Icon.EDIT.show()));
+        Button editTask = new Button("Edit Task", new ImageView(Icon.CONFIRM.show()));
         editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(editTask, Priority.ALWAYS);
         editTask.setMaxWidth(Double.MAX_VALUE);
