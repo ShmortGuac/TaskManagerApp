@@ -155,17 +155,15 @@ public class TaskDetails extends VBox {
         boolean isChanged = false;
 
         if (!taskName.getText().equals(task.getTaskName())) {
-            task.setTaskName(taskName.getText());
             isChanged = true;
         }
         if (!dueDateField.getValue().equals(task.getDueDate())) {
-            task.setDueDate(dueDateField.getValue());
             isChanged = true;
         }
         if (!priorityField.getValue().equals(task.getPriority())) {
-            task.setPriority(priorityField.getValue());
             isChanged = true;
         }
+
         if (isChanged) {
             showSaveDialog(taskName, categoryField, dueDateField, priorityField, task);
         }
@@ -175,19 +173,15 @@ public class TaskDetails extends VBox {
         boolean isChanged = false;
 
         if (!taskName.getText().equals(task.getTaskName())) {
-            task.setTaskName(taskName.getText());
             isChanged = true;
         }
         if(!subjectField.getText().equals(task.getSubject())){
-            task.setSubject(subjectField.getText());
             isChanged = true;
         }
         if (!dueDateField.getValue().equals(task.getDueDate())) {
-            task.setDueDate(dueDateField.getValue());
             isChanged = true;
         }
         if (!priorityField.getValue().equals(task.getPriority())) {
-            task.setPriority(priorityField.getValue());
             isChanged = true;
         }
         if (isChanged) {
@@ -199,19 +193,15 @@ public class TaskDetails extends VBox {
         boolean isChanged = false;
 
         if (!taskName.getText().equals(task.getTaskName())) {
-            task.setTaskName(taskName.getText());
             isChanged = true;
         }
         if (!descriptionArea.getText().equals(task.getDescription())){
-            task.setDescription(descriptionArea.getText());
             isChanged = true;
         }
         if (!dueDateField.getValue().equals(task.getDueDate())) {
-            task.setDueDate(dueDateField.getValue());
             isChanged = true;
         }
         if (!priorityField.getValue().equals(task.getPriority())) {
-            task.setPriority(priorityField.getValue());
             isChanged = true;
         }
         if (isChanged) {
