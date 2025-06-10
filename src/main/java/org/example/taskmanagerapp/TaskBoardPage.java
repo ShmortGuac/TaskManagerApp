@@ -34,7 +34,7 @@ public class TaskBoardPage extends VBox {
         nexusLogoView.setFitHeight(48);
         nexusLogoView.setPreserveRatio(true);
 
-        backButton = new HBox(5, Icon.BACK.show(), backLabel);
+        backButton = new HBox(5, new ImageView(Icon.BACK.show()), backLabel);
         backButton.setAlignment(Pos.CENTER_LEFT);
         backButton.setStyle("-fx-cursor: hand");
 
@@ -71,7 +71,7 @@ public class TaskBoardPage extends VBox {
         // Task List Section--------------------------------
         Label taskBoardLabel = new Label("Task Board");
         taskBoardLabel.setMaxWidth(Double.MAX_VALUE);
-        taskBoardLabel.setStyle("-fx-text-fill: white;");
+        taskBoardLabel.setStyle("-fx-text-fill: white; -fx-font-size: 18px");
 
 
         ComboBox<String> taskFilter = new ComboBox<String>();
@@ -93,7 +93,7 @@ public class TaskBoardPage extends VBox {
             }
         });
 
-        HBox filterContainer = new HBox(10, Icon.FILTER.show(), taskFilter);
+        HBox filterContainer = new HBox(10, new ImageView(Icon.FILTER.show()), taskFilter);
 
         HBox taskBoardHeader = new HBox(taskBoardLabel, filterContainer);
         HBox.setHgrow(taskBoardLabel, Priority.ALWAYS);
@@ -122,7 +122,7 @@ public class TaskBoardPage extends VBox {
 
         Label taskDetailsLabel = new Label("Task Details");
         taskDetailsLabel.setAlignment(Pos.CENTER_LEFT);
-        taskDetailsLabel.setStyle("-fx-text-fill: white");
+        taskDetailsLabel.setStyle("-fx-text-fill: white; -fx-font-size: 18px");
         taskDetailsLabel.setPrefHeight(30);
 
         VBox taskDetailsBox = new VBox(new TaskDetails());
@@ -153,7 +153,7 @@ public class TaskBoardPage extends VBox {
 
         // Additional Buttons--------------------------------------------------
 
-        Button addTask = new Button("Add Task", Icon.ADD.show());
+        Button addTask = new Button("Add Task", new ImageView(Icon.ADD.show()));
         addTask.setGraphicTextGap(10);
         addTask.setPadding(new Insets(10, 15, 10, 10));
         addTask.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 16; -fx-cursor: hand");
@@ -174,7 +174,7 @@ public class TaskBoardPage extends VBox {
         addTaskContainer.setAlignment(Pos.CENTER_LEFT);
 
 
-        Button saveBoard = new Button("SAVE BOARD", Icon.SAVE.show());
+        Button saveBoard = new Button("SAVE BOARD", new ImageView(Icon.SAVE.show()));
         saveBoard.setGraphicTextGap(10);
         saveBoard.setPadding(new Insets(10, 15, 10, 10));
         saveBoard.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 16; -fx-cursor: hand");

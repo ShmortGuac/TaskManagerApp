@@ -12,15 +12,12 @@ public enum Icon {
     BACK("file:src/main/images/arrow_back.png");
 
     private Image image;
-    private ImageView imageView;
 
     Icon(String imageSrc){
         this.image = new Image(imageSrc);
-        this.imageView = new ImageView(image);
-
     }
 
-    public ImageView show(){
-        return imageView;
+    public Image show(){
+        return image;
     }
 }
