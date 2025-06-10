@@ -2,6 +2,7 @@ package org.example.taskmanagerapp;
 
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -36,6 +37,7 @@ public class HomePage extends VBox {
         loadTaskBoard = new Button("Load Task Board");
         exit = new Button("Exit");
 
+        // New Task Button
         newTaskBoard.setPrefHeight(buttonHeight);
         newTaskBoard.setPrefWidth(buttonWidth);
         newTaskBoard.setOnAction(e->{
@@ -60,7 +62,7 @@ public class HomePage extends VBox {
             st.play();
         });
 
-
+        // Load Button
         loadTaskBoard.setPrefHeight(buttonHeight);
         loadTaskBoard.setPrefWidth(buttonWidth);
         loadTaskBoard.setOnMouseEntered(e->{
@@ -91,10 +93,12 @@ public class HomePage extends VBox {
             app.showTaskBoardPage(fileHandler.getLoadedTask());
         });
 
-
-
+        // Exit Button
         exit.setPrefHeight(buttonHeight);
         exit.setPrefWidth(buttonWidth);
+        exit.setOnAction(e -> {
+            Platform.exit();
+        });
         exit.setOnMouseEntered(e->{
             ScaleTransition st = new ScaleTransition(Duration.seconds(0.2), exit);
             st.setFromX(1);
@@ -114,17 +118,12 @@ public class HomePage extends VBox {
             st.play();
         });
 
-
-
-
-
-        //HomePage constructors are put here
+        // HomePage constructors are put here
         this.setSpacing(10);
         this.setAlignment(Pos.CENTER);
         this.getChildren().addAll(imageView, appTitle, newTaskBoard, loadTaskBoard, exit);
 
-        //CSS styling
-
+        // CSS styling
         String buttonClass = "-fx-font-size: 15; -fx-background-radius: 15; -fx-cursor: hand; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;";
 
         this.setStyle("-fx-background-color: black");

@@ -13,10 +13,10 @@ import java.util.Objects;
 
 public class AddTaskPanel extends Stage {
 
-
     public AddTaskPanel(){
         super();
         this.setTitle("Add Task");
+        this.getIcons().add(Icon.ADD.show());
 
         Label addTaskLabel = new Label("Add New Task");
         addTaskLabel.setStyle("-fx-font-size: 26; -fx-text-fill: white");
@@ -146,7 +146,6 @@ public class AddTaskPanel extends Stage {
         VBox buttonSection = new VBox(addButton);
         buttonSection.setAlignment(Pos.CENTER);
 
-
         VBox root = new VBox(10, titleSection, inputSection, buttonSection);
         root.setPadding(new Insets(15));
         root.setStyle("-fx-background-color: black");
@@ -165,5 +164,4 @@ public class AddTaskPanel extends Stage {
             default -> new GeneralTask();
         };
     }
-
 }

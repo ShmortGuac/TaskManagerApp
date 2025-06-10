@@ -78,7 +78,7 @@ public class TaskValidator {
             alert.setContentText("Priority cannot be empty");
             alert.showAndWait();
             return false;
-        } else if (!priority.equals("LOW") && !priority.equals("MEDIUM") && !priority.equals("HIGH")) {
+        } else if (!priority.equalsIgnoreCase("LOW") && !priority.equalsIgnoreCase("MEDIUM") && !priority.equalsIgnoreCase("HIGH")) {
             alert.setHeaderText("Invalid Priority");
             alert.setContentText("Priority must either be LOW, MEDIUM OR HIGH");
             alert.showAndWait();
@@ -92,5 +92,4 @@ public class TaskValidator {
             return true;
         }
     }
-
 }

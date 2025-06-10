@@ -18,10 +18,8 @@ public class GeneralTask extends Task {
         super(taskName, category, dueDate, priority, completed);
     }
 
-
     @Override
     public VBox displayProperties(){
         return new TaskDetails(this);
     }
-
 }

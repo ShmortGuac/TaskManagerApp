@@ -2,7 +2,9 @@ package org.example.taskmanagerapp;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,6 +20,8 @@ public class TaskManagerApp extends Application{
 
         // Separated the original GUI code into its own separate class
         primaryStage = stage;
+        Image icon = new Image("file:src/main/images/nexus_logo_whitebg.png");
+        stage.getIcons().add(icon);
         stage.setTitle("Task Manager App");
         showHomePage();
 

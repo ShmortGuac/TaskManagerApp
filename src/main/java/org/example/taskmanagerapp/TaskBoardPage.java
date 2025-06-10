@@ -23,9 +23,7 @@ public class TaskBoardPage extends VBox {
 
     public TaskBoardPage(TaskManagerApp app, ArrayList<Task> taskArrayList){
 
-        // Page Header---------------------------------------------------------
-
-
+        // Page Header --------------------------------------------------------
         Label backLabel = new Label("Back");
         backLabel.setStyle("-fx-text-fill: white; -fx-font-size: 16");
 
@@ -63,12 +61,12 @@ public class TaskBoardPage extends VBox {
 
         HBox pageHeader = new HBox(10, backContainer, logoContainer, emptyContainer);
         pageHeader.setAlignment(Pos.CENTER);
+        // Page Header --------------------------------------------------------
 
-        // Page Header---------------------------------------------------------
 
         // Page Body-----------------------------------------------------------
 
-        // Task List Section--------------------------------
+        // Task List Section -------------------------------
         Label taskBoardLabel = new Label("Task Board");
         taskBoardLabel.setMaxWidth(Double.MAX_VALUE);
         taskBoardLabel.setStyle("-fx-text-fill: white; -fx-font-size: 18px");
@@ -114,12 +112,10 @@ public class TaskBoardPage extends VBox {
         VBox taskBoard = new VBox(10, taskBoardHeader, taskListView);
         VBox.setVgrow(taskListView, Priority.ALWAYS);
         taskBoard.setPadding(new Insets(10));
-        // Task List Section--------------------------------
+        // Task List Section -------------------------------
 
 
-
-        // Task Details Section-----------------------------
-
+        // Task Details Section ----------------------------
         Label taskDetailsLabel = new Label("Task Details");
         taskDetailsLabel.setAlignment(Pos.CENTER_LEFT);
         taskDetailsLabel.setStyle("-fx-text-fill: white; -fx-font-size: 18px");
@@ -146,13 +142,12 @@ public class TaskBoardPage extends VBox {
         HBox pageBody = new HBox(taskBoard, taskDetails);
         HBox.setHgrow(taskBoard, Priority.ALWAYS);
         VBox.setVgrow(pageBody, Priority.ALWAYS);
-
-        // Task Details Section-----------------------------
+        // Task Details Section ----------------------------
 
         // Page Body-----------------------------------------------------------
 
-        // Additional Buttons--------------------------------------------------
 
+        // Additional Buttons--------------------------------------------------
         Button addTask = new Button("Add Task", new ImageView(Icon.ADD.show()));
         addTask.setGraphicTextGap(10);
         addTask.setPadding(new Insets(10, 15, 10, 10));
@@ -179,7 +174,6 @@ public class TaskBoardPage extends VBox {
         saveBoard.setPadding(new Insets(10, 15, 10, 10));
         saveBoard.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 16; -fx-cursor: hand");
 
-        // Add hover effects for Save Board button
         saveBoard.setOnMouseEntered(e -> {
             saveBoard.setStyle("-fx-background-color: #00AA00; -fx-text-fill: white; -fx-font-size: 16; -fx-cursor: hand;");
         });
@@ -206,21 +200,14 @@ public class TaskBoardPage extends VBox {
 
         HBox buttonSection = new HBox(addTaskContainer, saveBoardContainer);
         buttonSection.setPadding(new Insets(10));
-
+        // Additional Buttons--------------------------------------------------
 
         // Remove Task Input section and moved it into a separate class for the input panel
-
-
 
         this.getChildren().addAll(pageHeader, pageBody, buttonSection);
         this.setSpacing(10);
         this.setPadding(new Insets(20, 10, 20, 10));
 
         this.setStyle("-fx-background-color: black;");
-
-
     }
-
-
-
 }
