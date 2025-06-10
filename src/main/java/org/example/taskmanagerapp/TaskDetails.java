@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -18,14 +19,14 @@ public class TaskDetails extends VBox {
 
         TextField taskName = new TextField("Task Name");
         taskName.setEditable(false);
-        taskName.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-background-color: black; -fx-border-color: white");
+        taskName.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-background-color: black;");
         taskName.setPrefHeight(50);
         taskName.setAlignment(Pos.CENTER);
 
         VBox taskAttributes = new VBox();
         VBox.setVgrow(taskAttributes, Priority.ALWAYS);
 
-        Button editTask = new Button("Edit Task", new ImageView(Icon.EDIT.show()));
+        Button editTask = new Button("Confirm Changes", new ImageView(Icon.EDIT.show()));
         editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(editTask, Priority.ALWAYS);
         editTask.setMaxWidth(Double.MAX_VALUE);
@@ -66,12 +67,41 @@ public class TaskDetails extends VBox {
         super();
 
         TextField taskName = new TextField("Task Name");
-        taskName.setStyle("-fx-font-size: 20; -fx-text-fill: black;");
+        taskName.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-background-color: black;");
+        taskName.setEditable(false);
         taskName.setPrefHeight(30);
         taskName.setAlignment(Pos.CENTER);
         taskName.setText(task.getTaskName());
 
-        HBox taskNameBox = new HBox(taskName, new ImageView(Icon.EDIT.show()));
+        Button editButton = new Button("", new ImageView(Icon.EDIT.show()));
+        editButton.setStyle("-fx-background-color: black; -fx-cursor:hand;");
+        editButton.setOnMouseEntered(e -> {
+            editButton.setStyle("-fx-background-color: #333333; -fx-cursor: hand; -fx-scale-x: 1.1; -fx-scale-y: 1.1;");
+        });
+
+        editButton.setOnMouseExited(e -> {
+            editButton.setStyle("-fx-background-color: black; -fx-cursor: hand; -fx-scale-x: 1.0; -fx-scale-y: 1.0;");
+        });
+        editButton.setOnMousePressed(e -> {
+            editButton.setStyle("-fx-background-color: #555555; -fx-cursor: hand; -fx-scale-x: 0.95; -fx-scale-y: 0.95;");
+        });
+        editButton.setOnMouseReleased(e -> {
+            editButton.setStyle("-fx-background-color: #333333; -fx-cursor: hand; -fx-scale-x: 1.1; -fx-scale-y: 1.1;");
+        });
+        editButton.setOnAction(e -> {
+            if (taskName.isEditable()) {
+                taskName.setEditable(false);
+                taskName.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-background-color: black;");
+            } else {
+                taskName.setEditable(true);
+                taskName.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-background-color: black; -fx-border-color: white; -fx-border-width: 1;");
+                taskName.requestFocus();
+            }
+        });
+
+
+        HBox taskNameBox = new HBox(taskName, editButton);
+        taskNameBox.setAlignment(Pos.CENTER);
 
         Label categoryLabel = new Label("Category");
         categoryLabel.setPrefWidth(140);
@@ -130,7 +160,7 @@ public class TaskDetails extends VBox {
         taskAttributes.setAlignment(Pos.CENTER_LEFT);
         taskAttributes.setMaxHeight(Double.MAX_VALUE);
 
-        Button editTask = new Button("Edit Task", new ImageView(Icon.EDIT.show()));
+        Button editTask = new Button("Confirm Changes", new ImageView(Icon.EDIT.show()));
         editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(editTask, Priority.ALWAYS);
         editTask.setMaxWidth(Double.MAX_VALUE);
@@ -174,10 +204,41 @@ public class TaskDetails extends VBox {
         super();
 
         TextField taskName = new TextField("Task Name");
-        taskName.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-background-color: black; -fx-border-color: white");
+        taskName.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-background-color: black;");
+        taskName.setEditable(false);
         taskName.setPrefHeight(30);
         taskName.setAlignment(Pos.CENTER);
         taskName.setText(task.getTaskName());
+
+        Button editButton = new Button("", new ImageView(Icon.EDIT.show()));
+        editButton.setStyle("-fx-background-color: black; -fx-cursor:hand;");
+        editButton.setOnMouseEntered(e -> {
+            editButton.setStyle("-fx-background-color: #333333; -fx-cursor: hand; -fx-scale-x: 1.1; -fx-scale-y: 1.1;");
+        });
+
+        editButton.setOnMouseExited(e -> {
+            editButton.setStyle("-fx-background-color: black; -fx-cursor: hand; -fx-scale-x: 1.0; -fx-scale-y: 1.0;");
+        });
+        editButton.setOnMousePressed(e -> {
+            editButton.setStyle("-fx-background-color: #555555; -fx-cursor: hand; -fx-scale-x: 0.95; -fx-scale-y: 0.95;");
+        });
+        editButton.setOnMouseReleased(e -> {
+            editButton.setStyle("-fx-background-color: #333333; -fx-cursor: hand; -fx-scale-x: 1.1; -fx-scale-y: 1.1;");
+        });
+        editButton.setOnAction(e -> {
+            if (taskName.isEditable()) {
+                taskName.setEditable(false);
+                taskName.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-background-color: black;");
+            } else {
+                taskName.setEditable(true);
+                taskName.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-background-color: black; -fx-border-color: white; -fx-border-width: 1;");
+                taskName.requestFocus();
+            }
+        });
+
+
+        HBox taskNameBox = new HBox(taskName, editButton);
+        taskNameBox.setAlignment(Pos.CENTER);
 
         Label categoryLabel = new Label("Category");
         categoryLabel.setPrefWidth(140);
@@ -248,7 +309,7 @@ public class TaskDetails extends VBox {
         taskAttributes.setAlignment(Pos.CENTER_LEFT);
         taskAttributes.setMaxHeight(Double.MAX_VALUE);
 
-        Button editTask = new Button("Edit Task", new ImageView(Icon.DELETE.show()));
+        Button editTask = new Button("Confirm Changes", new ImageView(Icon.EDIT.show()));
         editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(editTask, Priority.ALWAYS);
         editTask.setMaxWidth(Double.MAX_VALUE);
@@ -282,7 +343,7 @@ public class TaskDetails extends VBox {
 
         HBox taskButtons = new HBox(10, editTask, deleteTask);
 
-        this.getChildren().addAll(taskName, taskAttributes, taskButtons);
+        this.getChildren().addAll(taskNameBox, taskAttributes, taskButtons);
         this.setPadding(new Insets(10));
         VBox.setVgrow(this, Priority.ALWAYS);
         this.setStyle("-fx-border-color: white; -fx-border-width: 3;");
@@ -292,10 +353,40 @@ public class TaskDetails extends VBox {
         super();
 
         TextField taskName = new TextField("Task Name");
-        taskName.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-background-color: black; -fx-border-color: white");
+        taskName.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-background-color: black;");
+        taskName.setEditable(false);
         taskName.setPrefHeight(30);
         taskName.setAlignment(Pos.CENTER);
         taskName.setText(task.getTaskName());
+
+        Button editButton = new Button("", new ImageView(Icon.EDIT.show()));
+        editButton.setStyle("-fx-background-color: black; -fx-cursor:hand;");
+        editButton.setOnMouseEntered(e -> {
+            editButton.setStyle("-fx-background-color: #333333; -fx-cursor: hand; -fx-scale-x: 1.1; -fx-scale-y: 1.1;");
+        });
+
+        editButton.setOnMouseExited(e -> {
+            editButton.setStyle("-fx-background-color: black; -fx-cursor: hand; -fx-scale-x: 1.0; -fx-scale-y: 1.0;");
+        });
+        editButton.setOnMousePressed(e -> {
+            editButton.setStyle("-fx-background-color: #555555; -fx-cursor: hand; -fx-scale-x: 0.95; -fx-scale-y: 0.95;");
+        });
+        editButton.setOnMouseReleased(e -> {
+            editButton.setStyle("-fx-background-color: #333333; -fx-cursor: hand; -fx-scale-x: 1.1; -fx-scale-y: 1.1;");
+        });
+        editButton.setOnAction(e -> {
+            if (taskName.isEditable()) {
+                taskName.setEditable(false);
+                taskName.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-background-color: black;");
+            } else {
+                taskName.setEditable(true);
+                taskName.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-background-color: black; -fx-border-color: white; -fx-border-width: 1;");
+                taskName.requestFocus();
+            }
+        });
+
+        HBox taskNameBox = new HBox(taskName, editButton);
+        taskNameBox.setAlignment(Pos.CENTER);
 
         Label categoryLabel = new Label("Category");
         categoryLabel.setPrefWidth(140);
@@ -365,7 +456,7 @@ public class TaskDetails extends VBox {
         taskAttributes.setAlignment(Pos.CENTER_LEFT);
         taskAttributes.setMaxHeight(Double.MAX_VALUE);
 
-        Button editTask = new Button("Edit Task", new ImageView(Icon.EDIT.show()));
+        Button editTask = new Button("Confirm Changes", new ImageView(Icon.EDIT.show()));
         editTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: blue; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(editTask, Priority.ALWAYS);
         editTask.setMaxWidth(Double.MAX_VALUE);
@@ -382,7 +473,7 @@ public class TaskDetails extends VBox {
             enableEditModeWork(taskName, categoryField, descriptionArea, dueDateField, priorityField, task);
         });
 
-        Button deleteTask = new Button("Delete Task", new ImageView(Icon.EDIT.show()));
+        Button deleteTask = new Button("Delete Task", new ImageView(Icon.DELETE.show()));
         deleteTask.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-background-color: red; -fx-background-radius:10; -fx-cursor: hand");
         HBox.setHgrow(deleteTask, Priority.ALWAYS);
         deleteTask.setMaxWidth(Double.MAX_VALUE);
@@ -399,7 +490,7 @@ public class TaskDetails extends VBox {
 
         HBox taskButtons = new HBox(10, editTask, deleteTask);
 
-        this.getChildren().addAll(taskName, taskAttributes, taskButtons);
+        this.getChildren().addAll(taskNameBox, taskAttributes, taskButtons);
         this.setPadding(new Insets(10));
         VBox.setVgrow(this, Priority.ALWAYS);
         this.setStyle("-fx-border-color: white; -fx-border-width: 3;");
