@@ -23,3 +23,6 @@ public class GeneralTask extends Task {
         return new TaskDetails(this);
     }
 }
+
+
+
