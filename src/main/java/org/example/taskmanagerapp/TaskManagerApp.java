@@ -15,6 +15,8 @@ public class TaskManagerApp extends Application{
 
     // Changed the TaskManagerApp from CLI application into a GUI application
 
+    // Separated each page into its own separate class and each page is called from within this main class
+
     @Override
     public void start(Stage stage) throws IOException {
 

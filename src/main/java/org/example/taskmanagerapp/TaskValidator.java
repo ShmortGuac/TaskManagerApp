@@ -8,8 +8,12 @@ import java.time.LocalDate;
 
 public class TaskValidator {
 
+    // Modified validateTask logic to output an Alert Signal rather than a simple text
+
     private static final Alert alert = new Alert(Alert.AlertType.ERROR);
 
+    // Changed parameters for validate Task to accept individual attribute rather than a Task object
+    // Allows for validating input before creating a Task object
     public static boolean validateTask(String taskName, String category, LocalDate dueDate, String priority) {
 
         alert.setTitle("Input Error!");
@@ -48,6 +52,8 @@ public class TaskValidator {
             return true;
         }
     }
+
+    // Overloaded Validate Task to also accept subject parameter
 
     public static boolean validateTask(String taskName, String category, LocalDate dueDate, String priority, String subject) {
 

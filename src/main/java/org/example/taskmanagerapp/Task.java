@@ -1,11 +1,13 @@
 package org.example.taskmanagerapp;
 
-import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
 
-@SuppressWarnings("unused")
+// Changed Task class into abstract Class to allow for 3 different type of class each with their own implementation of displaying properties
+
+// Task Card is also deleted as it is no longer used
+
 public abstract class Task {
  
     private String taskName;
